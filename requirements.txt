@@ -1,5 +1,2 @@
 fastapi
 uvicorn[standard]
-
-
-# dont mind this
