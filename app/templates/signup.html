@@ -6,16 +6,15 @@
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{{ css }}" />
 
-
     <!-- header font -->
-     
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-     <!-- header font -->
+    <!-- header font -->
   </head>
   <body>
     <!-- <header>
@@ -64,7 +63,9 @@
           <p class="header_middle_link">
             <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
           </p>
-          <p class="header_middle_link"><a href="{{ url_for('google_photos_page') }}">Photos</a></p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('google_photos_page') }}">Photos</a>
+          </p>
           <p class="header_middle_link">
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
@@ -128,7 +129,7 @@
           {% if error %}
           <span
             style="
-              height: 40px;
+              height: 30px;
               width: 500px;
               padding: 10px 30px;
               border-radius: 50px;
