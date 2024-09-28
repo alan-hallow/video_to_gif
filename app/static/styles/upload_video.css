@@ -1,0 +1,599 @@
+body {
+  background-color: #000;
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+/* header code */
+
+.container_whole_navbar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  background-color: #1f1f1f;
+  height: 50px;
+  width: 100vw;
+  position: fixed;
+  z-index: 1000;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+}
+
+.container_header_left {
+  grid-area: 1 / 1 / 2 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 100px;
+}
+
+.container_header_middle {
+  grid-area: 1 / 2 / 2 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.container_header_right {
+  grid-area: 1 / 3 / 2 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 20px;
+  padding-right: 100px;
+}
+
+.header_title {
+  padding: 0;
+  margin: 0;
+}
+
+.header_middle_link {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header_right_link {
+  padding: 0;
+  margin: 0;
+}
+
+/* header code ends */
+
+.container_whole_upload_video {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container_whole_left_side {
+  padding-bottom: 300px;
+  padding-left: 100px;
+  background-color: #000;
+  padding-top: 50px;
+
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.container_whole_left_side_inner {
+  width: 80vw;
+  overflow-y: auto;
+}
+
+.left_side_title {
+  font-size: 30px;
+}
+
+.display_none {
+  display: none;
+}
+
+.container_all_except_title {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 50px;
+  grid-row-gap: 0px;
+  width: 80vw;
+}
+
+.container_left_right_side {
+  grid-area: 1 / 2 / 2 / 3;
+  background-color: #0f0f0f;
+  border-radius: 45px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.container_thumbnail_or_generated_gif {
+  width: 440px;
+  height: 300px;
+  background-color: #1d1d1d;
+  border-radius: 15px;
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container_thumbnail_or_generated_gif_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.container_usual_stuff {
+  height: 130px;
+  width: 440px;
+  background-color: #0a0a0a;
+  border-radius: 15px;
+  padding: 0;
+}
+
+.container_usual_stuff_p {
+  font-size: 12px;
+  margin: 0;
+  padding: 20px;
+}
+.container_left_right_side_button {
+  position: relative; /* To contain the absolute ::before element */
+  height: 50px;
+  width: 300px;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 50px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  margin: 30px 0;
+  outline: none;
+  overflow: hidden; /* To prevent ::before overflow */
+  transition: background-color 0.6s ease-in-out,
+    background-image 0.6s ease-in-out;
+}
+
+.container_left_right_side_button {
+  height: 50px;
+  width: 300px;
+  font-size: 20px;
+  color: #10002b;
+  background-color: #4158d0;
+  background-image: linear-gradient(
+    43deg,
+    #efc3e6 0%,
+    #b8bedd 33%,
+    #91e5f6 66%,
+    #74b2d5 100%
+  );
+  color: #000;
+  border-radius: 50px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  margin: 30px 0;
+  outline: none;
+  transition: 0.5s;
+  background-size: 500%;
+  outline: 3px solid #fff;
+  background-position: -150px;
+}
+
+.container_left_right_side_button:hover {
+  background-position: 0px;
+  transition: 0.5s;
+  background-color: #4158d0;
+  background-size: 100%;
+  outline: 3px solid #9b5de5;
+}
+
+/* drag and drop file upload */
+
+.file_upload_container {
+  grid-area: 1 / 1 / 2 / 2;
+  height: 600px;
+  width: 650px;
+  border-radius: 45px;
+  background-color: #0f0f0f;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.container_file_upload_drop_area {
+  height: 300px;
+  width: 600px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  outline: 2px dashed #767676;
+}
+.upload_video_label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 20px;
+  user-select: none;
+}
+
+.upload_video_label p {
+  padding: 0;
+  margin: 0;
+}
+
+.file_upload_title {
+  font-size: 30px;
+  padding: 20px;
+  margin: 0;
+}
+
+.container_selected_file {
+  height: 100px;
+  width: 600px;
+  background-color: #0a0a0a;
+  border-radius: 20px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.container_selected_file_name {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.container_selected_file_button {
+  height: 50px;
+  padding: 0 15px;
+  background-color: #1a1a1a;
+  color: white;
+  font-size: 20px;
+  outline: none;
+  border: none;
+  user-select: none;
+  border-radius: 10px;
+  justify-self: end;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.container_selected_file_button:hover {
+  background-color: #1f1f1f;
+}
+
+.button_clear_selection {
+  height: 50px;
+  width: 600px;
+  background-color: transparent;
+  border: 2px solid #1f1f1f;
+  outline: none;
+  color: #4f4f4f;
+  margin-top: 20px;
+  border-radius: 20px;
+  transition: 0.2s ease-out;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button_clear_selection:hover {
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.third_item_drop_area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  opacity: 0.6;
+  padding: 0;
+}
+
+/* drag and drop file upload ends */
+
+/* Toggle switch styles */
+.ai_vision_label {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4cd964; /* When checked */
+}
+
+input:not(:checked) + .slider {
+  background-color: #ccc; /* When not checked */
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* whole right side */
+
+.container_whole_right_side {
+  height: 100vh;
+  width: 20vw;
+  background-color: #0a0a0a;
+  outline: 2px solid #2f2f2f;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  padding: 20px 20px;
+  margin-bottom: 50px;
+}
+
+.container_whole_right_side_inner {
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 0 0 100px 0;
+}
+.container_whole_right_side_main_title {
+  padding-top: 30px;
+  font-weight: 500;
+  justify-self: start;
+}
+
+.container_whole_right_side_components {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.control_panel_color_selector {
+  background-color: transparent;
+  height: 50px;
+  border: none;
+  outline: none;
+}
+.control_panel_paragraph {
+  padding: 10px 0 0 0;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.container_control_panel_color_selectors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+.container_control_panel_color_selector_whole {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 150px;
+  padding: 10px 0;
+}
+
+input[type="range"] {
+  overflow: hidden;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 300px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 20px;
+  width: 100%;
+  background-color: #2f2f2f;
+  border-radius: 50px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  display: none;
+  background-color: transparent;
+  border: none;
+}
+
+input[type="range"]::-moz-range-progress {
+  background-color: #bee3db;
+  height: 20px;
+  border-radius: 50px 0 0 50px;
+}
+/* 
+.control_panel_selector {
+  height: 50px;
+  width: 300px;
+  border-radius: 10px;
+  background-color: #f6feff;
+  color: #000;
+  border: none;
+  outline: 2px solid black;
+  padding: 0 10px;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 10px 0;
+} */
+
+.custom-select {
+  min-width: 300px;
+  position: relative;
+  margin: 10px 0;
+}
+
+.custom-select select {
+  appearance: none;
+  width: 100%;
+  font-size: 1.15rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fffcf2;
+  border: none;
+  border-radius: 50px;
+  color: #000;
+  cursor: pointer;
+}
+
+.custom-select::before,
+.custom-select::after {
+  --size: 0.3rem;
+  content: "";
+  position: absolute;
+  right: 1rem;
+  pointer-events: none;
+}
+
+.custom-select::after {
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid black;
+  top: 45%;
+  border-radius: 10px;
+}
+/* whole right side ends */
+/* button code */
+/* The label that wraps the input and the slider */
+.upload_to_tenor {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide the actual checkbox input */
+.upload_to_tenor input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider styling */
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+/* The circle (the toggle) inside the slider */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* When the checkbox is checked, change the background color */
+.upload_to_tenor input:checked + .slider {
+  background-color: #4caf50;
+}
+
+/* Move the circle when the checkbox is checked */
+.upload_to_tenor input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Add some shadow to make the switch look more appealing */
+.slider {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.container_whole_right_side_inner_subtitles:focus {
+  border: 2px solid #4cd964;
+}
+
+/* button code ends */
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #3e3e3e;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

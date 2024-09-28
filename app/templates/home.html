@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ css }}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <!-- icons -->
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- fonts ended -->
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <div class="container_whole_navbar">
+        <div class="container_header_left">
+          <h2 class="header_title">VideotoGIF</h2>
+        </div>
+        <div class="container_header_middle">
+          <p class="header_middle_link">
+            <a href="{{ url_for('upload_video_page') }}">Video</a>
+          </p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('youtube_video_page') }}">Youtube</a>
+          </p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
+          </p>
+          <p class="header_middle_link"><a href="#">Photos</a></p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
+          </p>
+        </div>
+        <div class="container_header_right">
+          <p class="header_right_link">
+            <a href="{{ url_for('login_page') }}">Login</a>
+          </p>
+          <p class="header_right_link">
+            <a href="{{ url_for('signup_page') }}">Signin</a>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="container_whole_landing_page">
+      <div class="container_background_image">
+        <img
+          src="../static/res/anton-repponen-3MNzGlQM7qs-unsplash.jpg"
+          alt=""
+          class="container_background_image_image"
+        />
+      </div>
+      <div class="container_first_section">
+        <div class="container_first_gif_image">
+          <div class="container_first_gif_image_inside">
+            <img
+              src="https://media4.giphy.com/media/qmPz8oQXmE8ofEnaqt/giphy.webp?cid=790b7611zz3mlk3vxt45y9w440y9fa8jbgpzfd5g483ca76p&ep=v1_gifs_search&rid=giphy.webp&ct=g"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="container_second_gif_image">
+          <div class="container_second_gif_image_inside">
+            <img
+              src="https://media1.giphy.com/media/IQYoP7rv3Qz6g/200.webp?cid=790b7611km0isx254erpiodjfhicna7eug0npybgooq2zl5y&ep=v1_gifs_search&rid=200.webp&ct=g"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="container_third_gif_image">
+          <div class="container_third_gif_image_inside_horizontal"></div>
+          <img
+            src="https://media4.giphy.com/media/H5C8CevNMbpBqNqFjl/giphy.webp?cid=790b7611iy529vmmm2nf83aun8nupppbo15921h5g98bn08e&ep=v1_gifs_search&rid=giphy.webp&ct=g"
+            alt=""
+          />
+          <div class="container_third_gif_image_inside_vertical"></div>
+        </div>
+        <div class="container_first_section_title">
+          <div class="container_first_section_sub_title">
+            <h2>Convert</h2>
+          </div>
+          <div class="container_first_section_main_title">
+            <h1 class="first_section_main_title_video">Video</h1>
+            <h1 class="first_section_main_title_to">to</h1>
+            <h1
+              class="first_section_main_title_gif"
+              id="first_section_main_title_gif"
+            >
+              gif
+            </h1>
+          </div>
+          <div class="container_first_section_sub_content">
+            <p class="container_first_section_sub_content_p">
+              Effortlessly transform your videos into high-quality GIFs with
+              just a few clicks. Fast, easy, and ready to share – upload your
+              video and watch the magic happen!
+            </p>
+          </div>
+          <a
+            href="{{ url_for('upload_video_page') }}"
+            class="first_section_main_button"
+          >
+            Upload Video<span class="material-symbols-outlined">
+              arrow_forward_ios
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="container_second_section_background_gif">
+        <img
+          src="https://media0.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.webp?cid=790b7611ouf6tydzi4h07zlz44osauamys3dvbcl49of1nms&ep=v1_gifs_search&rid=giphy.webp&ct=g"
+          alt=""
+        />
+      </div>
+      <div class="container_second_section_second_gif">
+        <img
+          src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnViZjVyNGR4eG1udnFrODFpYXViNzhnZXkycmo2bGUxM3ozM2kyayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/gKHGnB1ml0moQdjhEJ/200.webp"
+          alt=""
+        />
+      </div>
+      <!-- <div class="container_third_section_first_gif">
+        <div class="container_third_section_first_gif_two">
+          <div class="container_third_section_first_gif_three">
+            <img
+              src="https://media0.giphy.com/media/tXL4FHPSnVJ0A/200.webp?cid=82a1493bq8jpuu4z2otvl6gpir78k913txqwhrwt7q20mzuf&ep=v1_gifs_trending&rid=200.webp&ct=g"
+              alt=""
+            />
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="container_main_details_section">
+      <div class="container_main_details_main_title">
+        <h1 class="container_main_details_main_title_h1">
+          Effortless and user friendly conversion process
+        </h1>
+      </div>
+      <div class="container_main_details_cards">
+        <div
+          class="container_main_details_card container_main_details_card_one"
+        >
+          <div
+            class="container_main_details_card_inside container_main_details_card_one_inside_one"
+          >
+            <img
+              src="https://media3.giphy.com/media/4EFt4UAegpqTy3nVce/giphy.webp?cid=790b7611acllo6lz5qeiekwqy48p6jtk9hj6pjusgadi465b&ep=v1_gifs_search&rid=giphy.webp&ct=g"
+              alt=""
+            />
+            <div class="card_data_text">
+              <h4 style="font-size: 25px; padding: 0; margin: 10px 0">
+                Instant Video Uploads
+              </h4>
+              <p style="font-size: 18px; opacity: 0.5">
+                Upload videos directly from your device and convert them into
+                high-quality GIFs within seconds.
+              </p>
+            </div>
+          </div>
+          <div
+            class="container_main_details_card_inside container_main_details_card_one_inside_two"
+          >
+            <span
+              class="material-symbols-outlined"
+              style="font-size: 70px; color: #c60709; margin-bottom: 20px"
+            >
+              smart_display
+            </span>
+            <h4 style="font-size: 25px; padding: 0; margin: 0">
+              YouTube Video Conversion
+            </h4>
+            <p
+              style="
+                font-size: 18px;
+                text-align: center;
+                opacity: 0.5;
+                padding: 0 20px;
+              "
+            >
+              Simply paste a YouTube video link, and transform your favorite
+              moments into GIFs with ease.
+            </p>
+          </div>
+        </div>
+        <div
+          class="container_main_details_card container_main_details_card_two"
+        >
+          <div
+            class="container_main_details_card_inside container_main_details_card_two_inside_one"
+          >
+            <span
+              class="material-symbols-outlined"
+              style="font-size: 70px; color: #c60709; margin-bottom: 20px"
+            >
+              subscriptions
+            </span>
+            <h4 style="font-size: 25px; padding: 0; margin: 0">
+              Batch YouTube Channel Conversion
+            </h4>
+            <p
+              style="
+                font-size: 18px;
+                text-align: center;
+                opacity: 0.5;
+                padding: 0 20px;
+              "
+            >
+              Convert multiple videos at once by pasting a YouTube channel link,
+              turning an entire collection into GIFs.
+            </p>
+          </div>
+          <div
+            class="container_main_details_card_inside container_main_details_card_two_inside_two"
+          >
+            <div
+              class="card_google_photos_image"
+              style="
+                height: 60%;
+                width: 500px;
+                background-color: #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                src="https://1000logos.net/wp-content/uploads/2020/05/Google-Photos-logo.png"
+                alt=""
+                class="card_google_photos_image_image"
+                style="height: 100px; width: 100px"
+              />
+            </div>
+
+            <div class="card_data_text">
+              <h4 style="font-size: 25px; padding: 0; margin: 10px 0">
+                Google Photos Integration
+              </h4>
+              <p style="font-size: 18px; opacity: 0.5">
+                Paste a Google Photos link and effortlessly convert any video
+                stored in your cloud into a GIF.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="container_main_details_card container_main_details_card_three"
+        >
+          <div
+            class="container_main_details_card_inside container_main_details_card_three_inside_one"
+          >
+            <img
+              src="https://media0.giphy.com/media/jvzlfnUwA3C5jy3cU5/200.webp?cid=790b7611zevkimg2rq7hjhlbh48wrggy2b8h24vlzaax5fdz&ep=v1_gifs_search&rid=200.webp&ct=g"
+              alt=""
+            />
+            <div class="card_data_text">
+              <h4 style="font-size: 25px; padding: 0; margin: 10px 0">
+                Fast, Seamless Processing
+              </h4>
+              <p style="font-size: 18px; opacity: 0.5">
+                Enjoy rapid video-to-GIF conversion without compromising on
+                quality, ensuring a smooth user experience.
+              </p>
+            </div>
+          </div>
+          <div
+            class="container_main_details_card_inside container_main_details_card_three_inside_two"
+          >
+            <span
+              class="material-symbols-outlined"
+              style="font-size: 70px; color: #fff; margin-bottom: 20px"
+            >
+              download_done
+            </span>
+            <h4 style="font-size: 25px; padding: 0; margin: 0">
+              Share and Download with Ease
+            </h4>
+            <p
+              style="
+                font-size: 18px;
+                text-align: center;
+                opacity: 0.5;
+                padding: 0 20px;
+              "
+            >
+              Download your GIFs or share them instantly on social media
+              platforms with just one click.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="container_pricing_card">
+        <div id="mouse-follow"></div>
+
+        <h2 class="container_pricing_card_h2">Subscriptions</h2>
+        <p>
+          Subscribe today to unlock unlimited access to exclusive features,
+          regular updates, premium content, and personalized services. Stay
+          ahead with new tools and enjoy a seamless experience tailored
+          specifically to meet your needs.
+        </p>
+        <a
+          class="container_pricing_card_main_button"
+          href="{{ url_for('subscriptions_page') }}"
+          >Go to subscriptions</a
+        >
+      </div>
+    </div>
+    <footer>
+      <div class="container_footer">
+        <div class="container_footer_main_items">
+          <a href="" style="font-size: 40px; color: #f4acb7">VideotoGIF</a>
+          <a href="{{ url_for('upload_video_page') }}"
+            ><span class="material-symbols-outlined"> upload </span>Upload
+            Video</a
+          >
+          <a href="{{ url_for('youtube_video_page') }}"
+            ><span class="material-symbols-outlined"> smart_display </span
+            >Youtube Video</a
+          >
+          <a href="{{ url_for('youtube_channel_page') }}"
+            ><span class="material-symbols-outlined"> subscriptions </span
+            >Youtube Channel</a
+          >
+          <a href=""
+            ><span class="material-symbols-outlined"> add_photo_alternate </span
+            >Google Photos</a
+          >
+          <hr />
+          <div
+            class="container_privacy_terms"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              align-self: center;
+              padding: 0;
+              margin: 0;
+            "
+          >
+            <a
+              href="#"
+              style="
+                font-family: 'Montserrat', sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 300;
+                font-style: normal;
+                text-align: center;
+                font-size: 15px;
+                opacity: 0.5;
+                text-decoration: underline;
+              "
+              >Terms of Service</a
+            >
+            <a
+              href="#"
+              style="
+                font-family: 'Montserrat', sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 300;
+                font-style: normal;
+                text-align: center;
+                font-size: 15px;
+                opacity: 0.5;
+                text-decoration: underline;
+              "
+              >Privacy Policy</a
+            >
+          </div>
+        </div>
+        <div class="container_footer_right_all">
+          <div class="container_footer_subscriptions">
+            <h3>
+              <span class="material-symbols-outlined"> credit_card </span
+              >Pricing
+            </h3>
+            <a href="{{ url_for('subscriptions_page') }}">Subscribe</a>
+          </div>
+          <div class="container_footer_bottom_items">
+            <a
+              href="{{ url_for('login_page') }}"
+              class="container_footer_bottom_right_button container_footer_login"
+              ><span class="material-symbols-outlined"> login </span>Login</a
+            >
+            <a
+              href="{{ url_for('signup_page') }}"
+              class="container_footer_bottom_right_button container_footer_signin"
+              ><span class="material-symbols-outlined"> add_circle </span
+              >Signin</a
+            >
+            <a
+              href="#"
+              class="container_footer_bottom_right_button container_footer_profile"
+              ><span class="material-symbols-outlined"> account_circle </span
+              >Profile</a
+            >
+          </div>
+        </div>
+      </div>
+      <p
+        style="
+          text-align: center;
+          align-self: center;
+          padding: 0;
+          margin: 50px 0 0 0;
+          font-size: 15px;
+          opacity: 0.5;
+        "
+      >
+        Copyright 2023 VideotoGIF
+      </p>
+    </footer>
+  </body>
+  <script>
+    document.onmousemove = (e) => {
+      const rect = document
+          .getElementById("mouse-follow")
+          .getBoundingClientRect(),
+        x = e.clientX - rect.left,
+        y = e.clientY - rect.top;
+      document
+        .getElementById("mouse-follow")
+        .style.setProperty("--mouse-x", `${x}px`);
+      document
+        .getElementById("mouse-follow")
+        .style.setProperty("--mouse-y", `${y}px`);
+    };
+  </script>
+</html>

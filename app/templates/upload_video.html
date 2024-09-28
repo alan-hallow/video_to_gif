@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ css }}" />
+    <!-- google fonts upload -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container_whole_navbar">
+        <div class="container_header_left">
+          <h2 class="header_title">VideotoGIF</h2>
+        </div>
+        <div class="container_header_middle">
+          <p class="header_middle_link">
+            <a href="{{ url_for('upload_video_page') }}">Video</a>
+          </p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('youtube_video_page') }}">Youtube</a>
+          </p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
+          </p>
+          <p class="header_middle_link"><a href="#">Photos</a></p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
+          </p>
+        </div>
+        <div class="container_header_right">
+          <p class="header_right_link">
+            <a href="{{ url_for('login_page') }}">Login</a>
+          </p>
+          <p class="header_right_link">
+            <a href="{{ url_for('signup_page') }}">Signin</a>
+          </p>
+        </div>
+      </div>
+    </header>
+    <div class="container_whole_upload_video">
+      <div class="container_whole_left_side">
+        <div class="container_whole_left_side_inner">
+          <h2 class="left_side_title">Upload Video</h2>
+          <div class="container_all_except_title">
+            <div class="file_upload_container">
+              <h3 class="file_upload_title">Upload files</h3>
+              <form action="/video_upload" method="post" enctype="multipart/form-data">
+                <div
+                  class="container_file_upload_drop_area"
+                  id="file_upload_drop_area"
+                >
+                  <input
+                    type="file"
+                    name="upload_video"
+                    id="upload_video"
+                    class="display_none"
+                    required
+                    multiple
+                    accept="video/*"
+                  />
+                  <label
+                  for="upload_video"
+                  class="upload_video_label"
+                  id="file_upload_drop_area_label"
+                  ><span
+                    class="material-symbols-outlined"
+                    style="font-size: 40px"
+                  >
+                    add_circle
+                  </span>
+                  <p style="opacity: 0.6">
+                    Drag & Drop or Click to choose file
+                  </p>
+                  <p class="third_item_drop_area">
+                    <span class="material-symbols-outlined"> info </span>Max
+                    file size : 1Gb
+                  </p></label>
+                  </div>
+                  <div class="container_selected_file">
+                    <p
+                      class="container_selected_file_name"
+                      id="selected_file_name"
+                    >
+                      Selected File Name
+                    </p>
+
+                    <button class="container_selected_file_button">
+                      <span class="material-symbols-outlined"> upload </span>
+                      Upload
+                    </button>
+                  </div>
+                  <button
+                    type="reset"
+                    onclick="removeFileOnClick()"
+                    class="button_clear_selection"
+                  >
+                    Remove Selected File
+                  </button>
+                </div>
+                <div class="container_left_right_side">
+                  <div
+                    id="video-thumbnails"
+                    class="container_thumbnail_or_generated_gif"
+                  >
+                    <img
+                      src="../static/results/{{ gif_location }}"
+                      alt="Upload video to create gif"
+                      style="
+                        width: 450px;
+                        height: 300px;
+                        border-radius: 20px;
+                        z-index: 20;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                    />
+                    <!-- Thumbnails will be added here -->
+                  </div>
+                  <div class="container_usual_stuff">
+                    <p class="container_usual_stuff_p">
+                      Convert your favorite videos into high-quality GIFs with
+                      ease. Simply Upload the Video, select the desired settings,
+                      and let our tool generate a custom GIF for you to share
+                      instantly!
+                    </p>
+                  </div>
+                  <button
+                    type="submit"
+                    onclick="loading_Button()"
+                    class="container_left_right_side_button"
+                  >
+                    Generate Gif
+                  </button>
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="container_whole_right_side">
+          <div class="container_whole_right_side_inner">
+            <h3 class="container_whole_right_side_main_title">Controls</h3>
+
+            <div class="container_whole_right_side_components">
+              <p class="control_panel_paragraph">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-size: 18px; color: #555555"
+                >
+                  subtitles </span
+                >Subtitles
+              </p>
+              <textarea
+                placeholder="00:00:01.000 -- 00:00:05.000 This is the format of the subtitle."
+                class="container_whole_right_side_inner_subtitles"
+                style="
+                  height: 150px;
+                  width: 296px;
+                  border-radius: 10px;
+                  border: 2px solid #8d99ae;
+                  background-color: #000;
+                  color: white;
+                  outline: none;
+                  padding: 10px;
+                  resize: none;
+                  font-family: Arial, sans-serif;
+                  font-size: 14px;
+                "
+              ></textarea>
+            </div>
+
+            <div class="container_whole_right_side_components">
+              <p class="control_panel_paragraph">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-size: 18px; color: #555555"
+                >
+                  format_size </span
+                >Font Size
+              </p>
+              <input
+                class="control_panel_seekbar"
+                type="range"
+                min="1"
+                max="20"
+                value="3"
+              />
+            </div>
+            <div class="container_whole_right_side_components">
+              <p class="control_panel_paragraph">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-size: 18px; color: #555555"
+                >
+                  format_bold </span
+                >Boldness
+              </p>
+              <input
+                class="control_panel_seekbar"
+                type="range"
+                min="1"
+                max="10"
+                value="4"
+              />
+            </div>
+
+            <div class="container_control_panel_color_selectors">
+              <div class="container_control_panel_color_selector_whole">
+                <label for="colorInput">Font Color 1</label>
+                <input
+                  type="color"
+                  class="control_panel_color_selector"
+                  id="colorInput"
+                  value="#fafaff"
+                />
+              </div>
+
+              <div class="container_control_panel_color_selector_whole">
+                <label for="colorInput">Font Color 2</label>
+                <input
+                  type="color"
+                  class="control_panel_color_selector"
+                  id="colorInput"
+                  value="#9b5de5"
+                />
+              </div>
+
+              <div class="container_control_panel_color_selector_whole">
+                <label for="colorInput">Outline Color</label>
+                <input
+                  type="color"
+                  class="control_panel_color_selector"
+                  id="colorInput"
+                  value="#000000"
+                />
+              </div>
+
+              <div class="container_control_panel_color_selector_whole">
+                <label for="colorInput">Shadow Color</label>
+                <input
+                  type="color"
+                  class="control_panel_color_selector"
+                  id="colorInput"
+                  value="#000000"
+                />
+              </div>
+            </div>
+
+            <div class="container_whole_right_side_components">
+              <p class="control_panel_paragraph">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-size: 18px; color: #555555"
+                >
+                  shadow </span
+                >Shadow Offset
+              </p>
+              <input
+                class="control_panel_seekbar"
+                type="range"
+                min="1"
+                max="10"
+                value="2"
+              />
+            </div>
+
+            <div class="container_whole_right_side_components">
+              <p class="control_panel_paragraph">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-size: 18px; color: #555555"
+                >
+                  format_line_spacing </span
+                >Line Spacing
+              </p>
+              <input
+                class="control_panel_seekbar"
+                type="range"
+                min="1"
+                max="10"
+                value="6"
+              />
+            </div>
+
+            <div class="container_whole_right_side_components">
+              <label for="caption_fonts" class="control_panel_paragraph"
+                ><span
+                  class="material-symbols-outlined"
+                  style="font-size: 18px; color: #555555"
+                >
+                  brand_family </span
+                >Select Font</label
+              >
+              <div class="custom-select">
+                <select
+                  name="caption_fonts"
+                  class="control_panel_selector"
+                  id="caption_fonts"
+                >
+                  <option value="Oswald">Oswald</option>
+                  <option value="Chase Dreams">Chase Dreams</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Nelhinco">Nelhinco</option>
+                  <option value="RacingPunch">RacingPunch</option>
+                  <option value="Scripto">Scripto</option>
+                  <option value="Cartoon Blocks">Cartoon Blocks</option>
+                  <option value="BloodAttack">BloodAttack</option>
+                  <option value="Ghost Blaze">Ghost Blaze</option>
+                  <option value="28 Days Later">28 Days Later</option>
+                </select>
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-right: 40px;
+              "
+            >
+              <p class="control_panel_paragraph">Upload to Tenor.com</p>
+
+              <form action="/upload_to_tenor"  method="post">
+
+                <input type="text" value="{{ gif_location }}" required name="gif_location" style="display: none;" >
+                <button type="submit" style="height: 40px; padding: 0 10px; color: #fff; background-color: #4cd964; border-radius: 5px; font-size: 18px; cursor: pointer;border: none; outline: none;">Upload</button>
+              </form>
+              <!-- <label class="upload_to_tenor">
+                <input
+                  type="checkbox"
+                  value="upload_to_tenor"
+                  name="upload_to_tenor"
+                  id="upload_to_tenor"
+                />
+                <span class="slider"></span>
+              </label> -->
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+  <script>
+    const uploadContainer = document.getElementById("file_upload_drop_area");
+    const fileInput = document.getElementById("upload_video");
+    const selectedFileName = document.getElementById("selected_file_name");
+    const thumbnailsContainer = document.getElementById("video-thumbnails");
+
+    // Show file input on click
+    uploadContainer.addEventListener("click", () => {
+      fileInput.click();
+    });
+
+    // Handle drag-over event
+    uploadContainer.addEventListener("dragover", (e) => {
+      e.preventDefault(); // Prevent default behavior (to allow drop)
+      uploadContainer.classList.add("dragging"); // Add class when dragging
+    });
+
+    // Handle drag leave event
+    uploadContainer.addEventListener("dragleave", () => {
+      uploadContainer.classList.remove("dragging");
+    });
+
+    // Handle drop event
+    uploadContainer.addEventListener("drop", (e) => {
+      e.preventDefault();
+      uploadContainer.classList.remove("dragging");
+
+      const files = e.dataTransfer.files;
+      handleFiles(files); // Handle the dropped files
+    });
+
+    // Handle file selection from input
+    fileInput.addEventListener("change", (e) => {
+      const files = e.target.files;
+      handleFiles(files); // Handle files selected from input
+    });
+
+    // Function to process files
+    function handleFiles(files) {
+      thumbnailsContainer.innerHTML = ""; // Clear previous thumbnails
+
+      for (const file of files) {
+        if (!file.type.startsWith("video/")) {
+          alert("Only video files are allowed!");
+          continue;
+        }
+
+        selectedFileName.textContent = file.name; // Display file name
+
+        const video = document.createElement("video");
+        video.src = URL.createObjectURL(file);
+        video.width = 450; // Set the width for the thumbnail
+        video.controls = false; // Disable controls for the thumbnail
+
+        video.addEventListener("loadeddata", () => {
+          // Once the video is loaded, capture a frame as the thumbnail
+          const canvas = document.createElement("canvas");
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          const img = document.createElement("img");
+          img.src = canvas.toDataURL("image/png");
+          img.width = 450; // Set the width of the thumbnail
+          img.style.overflow = "none";
+          img.height = 300;
+          img.style.borderRadius = "15px";
+
+          // Append thumbnail to the thumbnails container
+          thumbnailsContainer.appendChild(img);
+        });
+      }
+    }
+    function removeFileOnClick() {
+      // Clear the thumbnails container
+      thumbnailsContainer.innerHTML = "Upload video to create gif";
+
+      // Reset the selected file name
+      selectedFileName.textContent = "Selected File Name";
+    }
+  </script>
+</html>

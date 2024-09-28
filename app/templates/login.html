@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ css }}" />
+  </head>
+  <body>
+    <header>
+      <div class="container_whole_navbar">
+        <div class="container_header_left">
+          <h2 class="header_title">VideotoGIF</h2>
+        </div>
+        <div class="container_header_middle">
+          <p class="header_middle_link">
+            <a href="{{ url_for('upload_video_page') }}">Video</a>
+          </p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('youtube_video_page') }}">Youtube</a>
+          </p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
+          </p>
+          <p class="header_middle_link"><a href="#">Photos</a></p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
+          </p>
+        </div>
+        <div class="container_header_right">
+          <p class="header_right_link">
+            <a href="{{ url_for('login_page') }}">Login</a>
+          </p>
+          <p class="header_right_link">
+            <a href="{{ url_for('signup_page') }}">Signin</a>
+          </p>
+        </div>
+      </div>
+    </header>
+    <div
+      class="container_whole_login_page"
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+      "
+    >
+      <h1 style="color: white; padding: 30px">Login to VideotoGIF</h1>
+      <div class="container_google_login_design" style="margin: 10px">
+        <button
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 10px;
+            width: 560px;
+            height: 60px;
+            border-radius: 5px;
+            background-color: transparent;
+            outline: 2px solid #2b2d42;
+            border: none;
+          "
+        >
+          <img
+            src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+            alt="Google logo"
+            style="height: 50px; aspect-ratio: 1"
+          />
+          <p style="font-size: 20px">Login with Google</p>
+        </button>
+      </div>
+      <h3>OR</h3>
+      <form action="/login" method="post">
+        <div
+          class="container_login_credentials_complete"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+          "
+        >
+          {% if error %}
+          <span
+            style="
+              height: 50px;
+              width: 500px;
+              padding: 10px 30px;
+              border-radius: 50px;
+              margin-bottom: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background-color: #161616;
+              color: red;
+              font-size: 20px;
+            "
+            >{{ error}}</span
+          >
+          {% endif %}
+
+          <input
+            type="email"
+            name="email"
+            value="{{ email }}"
+            required
+            placeholder="Email"
+            style="
+              height: 40px;
+              width: 500px;
+              border-radius: 5px;
+              outline: none;
+              border: none;
+              background-color: transparent;
+              border: 2px solid #161616;
+              color: white;
+              font-size: 20px;
+              padding: 10px 30px;
+            "
+          />
+          <input
+            type="password"
+            name="password"
+            required
+            value="{{ password }}"
+            placeholder="Password"
+            style="
+              height: 40px;
+              width: 500px;
+              border-radius: 5px;
+              outline: none;
+              border: none;
+              background-color: transparent;
+              border: 2px solid #161616;
+              color: white;
+              font-size: 20px;
+              padding: 10px 30px;
+            "
+          />
+          <button type="submit">Login</button>
+        </div>
+      </form>
+
+      <p>
+        Don't have an account?
+        <a href="{{ url_for('signup_page') }}">Signup</a>
+      </p>
+    </div>
+  </body>
+</html>
