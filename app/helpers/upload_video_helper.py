@@ -22,8 +22,8 @@ def convert_video_to_gif(video_path: str, gif_path: str):
 async def process_video_upload(upload_video: UploadFile):
     try:
         # Ensure the 'uploads' and 'result' folders exist
-        uploads_dir = os.path.abspath("static/uploads")
-        result_dir = os.path.abspath("static/results")
+        uploads_dir = os.path.abspath("app/static/uploads")
+        result_dir = os.path.abspath("app/static/results")
         
         for directory in [uploads_dir, result_dir]:
             if not os.path.exists(directory):

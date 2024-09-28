@@ -6,13 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Setup MongoDB client and database
-client = AsyncIOMotorClient(os.getenv("MONGO_URI", "mongodb://localhost:27017"))
-db = client.videotogif  # Connect to the 'videotogif' database
+MONGO_URI = os.getenv("MONGO_URI")
+if not MONGO_URI:
+    raise ValueError("MONGO_URI environment variable is not set")
 
-# Function to test the MongoDB connection
-async def test_connection():
-    try:
-        collections = await db.list_collection_names()
-        print("Connected to MongoDB! Collections:", collections)
-    except Exception as e:
-        print(f"Error connecting to MongoDB: {e}")
+client = AsyncIOMotorClient(MONGO_URI)
+db = client.get_default_database()  # Automatically connect to the default database in the URI
+users_collection = db.get_collection("users")  # Access the 'users' collection

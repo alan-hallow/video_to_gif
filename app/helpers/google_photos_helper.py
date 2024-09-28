@@ -38,7 +38,7 @@ def convert_video_to_gif(video_path: str, gif_path: str):
     except Exception as e:
         print(f"An error occurred during GIF conversion: {e}")
 
-async def process_youtube_video(video_link: str):
+async def process_google_photos(video_link: str):
     try:
         # Ensure directories exist
         uploads_dir = os.path.abspath("app/static/uploads")

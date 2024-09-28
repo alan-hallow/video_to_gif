@@ -11,16 +11,16 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
-    
+
     <!-- header font -->
-     
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-     <!-- header font -->
+    <!-- header font -->
   </head>
   <body>
     <!-- <header>
@@ -54,7 +54,6 @@
       </div>
     </header> -->
 
-
     <header>
       <div class="container_whole_navbar">
         <div class="container_header_left">
@@ -70,7 +69,9 @@
           <p class="header_middle_link">
             <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
           </p>
-          <p class="header_middle_link"><a href="{{ url_for('google_photos_page') }}">Photos</a></p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('google_photos_page') }}">Photos</a>
+          </p>
           <p class="header_middle_link">
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
@@ -85,69 +86,72 @@
         </div>
       </div>
     </header>
+
     <div class="container_whole_upload_video">
       <div class="container_whole_left_side">
         <div class="container_whole_left_side_inner">
-          <h2 class="left_side_title">Convert Multiple Youtube Video to GIF</h2>
+          <h2 class="left_side_title">Convert Google Photos to GIF</h2>
           <div class="container_all_except_title">
             <div class="container_left_right_side">
-              <div
-                id="video-thumbnails"
-                class="container_thumbnail_or_generated_gif"
+              <form
+                action="/input_youtube_video_link"
+                class="container_left_right_side"
+                method="post"
               >
-                <form action="">
+                <div
+                  id="video-thumbnails"
+                  class="container_thumbnail_or_generated_gif"
+                >
                   <input
                     type="text"
+                    name="video_link"
+                    id="video_link"
                     class="container_thumbnail_or_generated_gif_input"
                     required
-                    placeholder="Enter Youtube Channel Link"
+                    placeholder="Enter Google Photos Link"
                   />
-                </form>
-                <!-- Thumbnails will be added here -->
-              </div>
-              <div class="container_usual_stuff">
-                <p class="container_usual_stuff_p">
-                  Convert all the videos of a Youtube channel into high-quality
-                  GIFs with ease. Simply paste the YouTube Channel link, select
-                  the desired settings, and let our tool generate a custom GIF
-                  for you to share instantly!
-                </p>
-              </div>
-              <button class="container_left_right_side_button">
-                Generate Gif
-              </button>
+                  {% if gif_url_youtube %}
+                  <div
+                    class="container_display_generated_gif"
+                    style="margin-top: 20px"
+                  >
+                    <img
+                      src="{{ gif_url_youtube }}"
+                      alt="Upload video to create gif"
+                      style="
+                        width: 640px;
+                        height: 400px;
+                        border-radius: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                    />
+                  </div>
+                  {% endif %}
+
+                  <!-- Thumbnails will be added here -->
+                </div>
+                <div class="container_usual_stuff">
+                  <p class="container_usual_stuff_p">
+                    Convert your favorite videos in Google Photos into
+                    high-quality GIFs with ease. Simply paste the Google Photos
+                    link, select the desired settings, and let our tool generate
+                    a custom GIF for you to share instantly!
+                  </p>
+                </div>
+                <button type="submit" class="container_left_right_side_button">
+                  Generate Gif
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
+
       <div class="container_whole_right_side">
         <div class="container_whole_right_side_inner">
           <h3 class="container_whole_right_side_main_title">Controls</h3>
-
-          <div class="container_whole_right_side_components">
-            <label for="" class="control_panel_paragraph"
-              >Amount of videos</label
-            >
-            <input
-              type="number"
-              placeholder="0 is all"
-              min="0"
-              required
-              max="20"
-              style="
-                height: 50px;
-                width: 260px;
-                border-radius: 50px;
-                font-size: 20px;
-                background-color: #cccccc;
-                color: #000;
-                border: none;
-                outline: none;
-                margin: 20px 0;
-                padding: 0 20px;
-              "
-            />
-          </div>
           <div
             style="
               display: flex;

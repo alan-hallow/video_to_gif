@@ -1,12 +1,20 @@
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 # Password hashing context using passlib
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# Secret key and algorithm for JWT tokens (use environment variables in a real project)
-SECRET_KEY = "your_secret_key_here"  # Replace with a secure key
+# Use environment variables for sensitive information
+SECRET_KEY = os.getenv("SECRET_KEY")  # Store in .env file
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable is not set")
+    
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Token expiry duration
 
@@ -52,8 +60,8 @@ def verify_token(token: str):
     """
     Verifies the JWT token, decodes it, and returns the payload.
     """
-    # try:
-    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-    return payload
-    # except JWTError:
-    #     raise HTTPException(status_code=401, detail="Could not validate credentials")
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except JWTError:
+        raise Exception("Could not validate credentials")
