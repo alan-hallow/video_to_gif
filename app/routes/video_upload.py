@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Request, UploadFile, File
+from fastapi import APIRouter, Request, UploadFile, File, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
-from app.helpers.upload_video_helper import process_video_upload
+from app.helpers.upload_video_helper import process_video_upload, process_video_upload_with_caption
 from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="app/templates")
@@ -22,9 +22,18 @@ async def upload_video_page(request: Request, gif_location: str = None, video_up
     )
 
 @router.post('/video_upload', response_class=HTMLResponse)
-async def handle_video_upload(request: Request, upload_video: UploadFile = File(...)):
+async def handle_video_upload(request: Request, upload_video: UploadFile = File(...),captions_bool:bool = Form(...), captions: str = Form(...), font_size: str= Form(...), boldness: str= Form(...), font_color_one: str= Form(...), font_color_two: str= Form(...), outline_color: str= Form(...), shadow_color: str= Form(...), shadow_offset: str= Form(...), line_spacing: str= Form(...), font: str= Form(...)):
     try:
-        result = await process_video_upload(upload_video)
+        if captions_bool ==  True:
+
+            print("with captiueknfakjf")
+
+            result = await process_video_upload_with_caption(upload_video, captions, font_size, boldness, font_color_one, font_color_two, outline_color, shadow_color, shadow_offset="4,4", line_spacing=10, font="Oswald.ttf")
+        else:
+            print(captions_bool)
+            print('wekjfekj')
+            result = await process_video_upload(upload_video)
+
         if result["status"] == "success":
             gif_location = result["gif_location"]
             video_upload_message = result["message"]
