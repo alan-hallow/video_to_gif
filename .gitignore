@@ -2,3 +2,5 @@ app/static/resources
 app/static/results
 app/static/uploads
 .env
+
+# don't add unneccessary files
