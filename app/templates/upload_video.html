@@ -141,6 +141,14 @@
                         instantly!
                       </p>
                     </div>
+
+                    {% if gif_location %}
+                      <div class="container_add_to_tenor">
+                        <p>Upload to Tenor.com</p>
+                        <input type="text" style="display: none;" value="{{ gif_location }}" id="value_for_gif_location_upload_tenor">
+                        <button type="submit" id="submitButton" class="upload_to_tenor_button">Upload</button>
+                      </div>
+                    {% endif %}
                     <button
                       type="submit"
                       onclick="loading_Button()"
@@ -148,6 +156,7 @@
                     >
                       Generate Gif
                     </button>
+
                     
                   </div>
               </div>
@@ -361,22 +370,6 @@
               </div>
             </div>
 
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding-right: 40px;
-              "
-            >
-              <p class="control_panel_paragraph">Upload to Tenor.com</p>
-
-              <form action="/upload_to_tenor"  method="post">
-
-                <input type="text" value="{{ gif_location }}" required name="gif_location" style="display: none;" >
-                <button type="submit" style="height: 40px; padding: 0 10px; color: #fff; background-color: #4cd964; border-radius: 5px; font-size: 18px; cursor: pointer;border: none; outline: none;">Upload</button>
-              </form>
-            </div>
           </div>
         </div>
       </form>
@@ -482,6 +475,34 @@
     // Set an interval to refresh every 500ms (half a second)
     setInterval(checkCaptionsStatus, 500);
 
+    // for uploading to tenor code
+    function sendDataToBackend(url, gifLocation) {
+      // Create form data
+      const formData = new FormData();
+      formData.append('gif_location', gifLocation);
 
+      // Send form data with fetch
+      fetch(url, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Success:', responseData);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
+    // Event listener for button click
+    document.getElementById('submitButton').addEventListener('click', function() {
+      // Get the gifLocation value from the input field
+      const gifLocation = document.getElementById('value_for_gif_location_upload_tenor').value;
+      
+      // Call the function to send data
+      sendDataToBackend('/upload_to_tenor', gifLocation);
+    });
+    // for uplaoding to tenor code ends here
   </script>
 </html>

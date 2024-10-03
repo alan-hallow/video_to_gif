@@ -1,3 +1,4 @@
 app/static/resources
 app/static/results
 app/static/uploads
+.env

@@ -12,7 +12,7 @@ def convert_video_to_gif(video_path: str, gif_path: str):
     clip = VideoFileClip(video_path)
     
     # Resize the video to 360p and reduce fps to 5 for GIF
-    resized_clip = clip.resize(height=360).set_fps(5)
+    resized_clip = clip.resize(height=144).set_fps(5)
     
     # Save the resized video as GIF
     resized_clip.write_gif(gif_path)
@@ -208,3 +208,8 @@ def wrap_text(text, font, max_width):
         lines.append(line.strip())
 
     return lines
+
+
+
+
+
