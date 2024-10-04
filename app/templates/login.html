@@ -105,7 +105,7 @@
           font-family: 'Yeseva One', serif;
           font-weight: 400;
           font-style: normal;
-          background: linear-gradient(to right, #fff,#fff, #8c00ff, #ffc400);
+          background: linear-gradient(to right, #fff, #fff, #8c00ff, #ffc400);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -113,29 +113,31 @@
       >
         Login to VideotoGIF
       </h1>
-      <div class="container_google_login_design" style="margin: 10px">
-        <button
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: start;
-            gap: 10px;
-            width: 560px;
-            height: 60px;
-            border-radius: 5px;
-            background-color: transparent;
-            outline: 2px solid #2b2d42;
-            border: none;
-          "
-        >
-          <img
-            src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-            alt="Google logo"
-            style="height: 50px; aspect-ratio: 1"
-          />
-          <p style="font-size: 20px">Login with Google</p>
-        </button>
-      </div>
+      <form action="googleauth">
+        <div class="container_google_login_design" style="margin: 10px">
+          <button
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: start;
+              gap: 10px;
+              width: 560px;
+              height: 60px;
+              border-radius: 5px;
+              background-color: transparent;
+              outline: 2px solid #2b2d42;
+              border: none;
+            "
+          >
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+              alt="Google logo"
+              style="height: 50px; aspect-ratio: 1"
+            />
+            <p style="font-size: 20px">Login with Google</p>
+          </button>
+        </div>
+      </form>
       <h3>OR</h3>
       <form action="/login" method="post">
         <div

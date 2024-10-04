@@ -2,5 +2,5 @@ app/static/resources
 app/static/results
 app/static/uploads
 .env
-
+client_secret.json
 # don't add unneccessary files
