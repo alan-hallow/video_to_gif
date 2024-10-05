@@ -1,59 +1,87 @@
-from fastapi import APIRouter, Request
-from fastapi.templating import Jinja2Templates
-from authlib.integrations.starlette_client import OAuth, OAuthError
-from starlette.config import Config
+import os
+from fastapi import APIRouter, Request, HTTPException
+from fastapi.responses import RedirectResponse
+from google_auth_oauthlib.flow import Flow
+from google.auth.transport.requests import Request as GoogleRequest
+from google.oauth2 import id_token
+from dotenv import load_dotenv
+from app.database import users_collection  # Assuming you have this setup like in signup
+from fastapi.responses import JSONResponse
 
-# Set up Jinja2 templates
-templates = Jinja2Templates(directory="app/templates")
+# Load environment variables
+load_dotenv()
 
-# Create router
 router = APIRouter()
 
-# Load environment variables from .env file
-config = Config(".env")
-
-# Initialize OAuth
-oauth = OAuth(config)
-
-# Register Google OAuth provider
-oauth.register(
-    name='google',
-    client_id='your-google-client-id',
-    client_secret='your-google-client-secret',
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    authorize_params=None,
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    access_token_params=None,
-    client_kwargs={'scope': 'openid profile email'},
+# Set up the Google OAuth 2.0 flow
+google_oauth_flow = Flow.from_client_secrets_file(
+    os.path.join(os.path.dirname(__file__), "../../client_secret.json"),  # Access client_secret.json from the root directory
+    scopes=[
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+        "openid"
+    ],
+    redirect_uri=os.getenv("GOOGLE_REDIRECT_URI")  # Ensure this comes from .env
 )
 
-# Google auth route
-@router.get('/google_auth')
-async def google_auth(request: Request):
-    redirect_uri = request.url_for('auth')
-    return await oauth.google.authorize_redirect(request, redirect_uri)
+# Explicitly allow HTTP for development (insecure transport)
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # Alternatively, set this in .env
+google_oauth_flow.redirect_uri = os.getenv("GOOGLE_REDIRECT_URI")
 
-# OAuth callback route
-@router.get('/auth')
-async def auth(request: Request):
+@router.get("/googleauth")
+def google_login():
+    """ Redirects the user to Google's OAuth 2.0 login page """
+    authorization_url, _ = google_oauth_flow.authorization_url(prompt='consent')
+    return RedirectResponse(url=authorization_url)
+
+@router.get("/auth/callback")
+async def google_callback(request: Request):
+    """ Handles the callback from Google after the user has signed in """
     try:
-        # Get the OAuth token
-        token = await oauth.google.authorize_access_token(request)
-    except OAuthError as e:
-        # Error handling
-        return templates.TemplateResponse(
-            name="error.html",
-            context={'request': request, 'error': e.error}
+        google_oauth_flow.fetch_token(authorization_response=str(request.url))
+
+        # Verify and decode the ID token
+        credentials = google_oauth_flow.credentials
+        id_info = id_token.verify_oauth2_token(
+            credentials.id_token,
+            GoogleRequest(),
+            os.getenv("GOOGLE_CLIENT_ID")
         )
 
-    # Extract user info from token
-    user = token.get('userinfo')
-    if user:
-        # Store user information in session
-        request.session['user'] = dict(user)
+        # Extract relevant info about the user
+        user_info = {
+            "email": id_info["email"],
+            "name": id_info.get("name"),
+            "picture": id_info.get("picture")
+        }
 
-    # Render home page with user info
-    return templates.TemplateResponse(
-        name='home.html',
-        context={'request': request, 'user': dict(user)}
-    )
+        # Print the extracted user information (email and name)
+        print(f"User Info: {user_info}")
+
+        # Store the user data in MongoDB
+        existing_user = await users_collection.find_one({"email": user_info["email"]})
+
+        if not existing_user:
+            # If user doesn't exist, insert the new user into MongoDB
+            new_user = {
+                "email": user_info["email"],
+                "name": user_info.get("name", "Unknown"),
+                "picture": user_info.get("picture", None),  # Optionally store the user's profile picture
+            }
+            await users_collection.insert_one(new_user)
+            print(f"New user added to MongoDB: {new_user}")
+        else:
+            print(f"User already exists in MongoDB: {existing_user}")
+
+        # Set a cookie for the user (store email and name)
+        response = RedirectResponse(url="/home")  # Redirect to home after login
+        response.set_cookie(key="email", value=user_info["email"])
+        response.set_cookie(key="name", value=user_info.get("name", "Unknown"))
+
+        # Print confirmation of the cookie being set
+        print(f"Cookie set: email={user_info['email']}, name={user_info.get('name', 'Unknown')}")
+
+        return response
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Google login error: {e}")

@@ -1,6 +1,40 @@
-app/static/resources
-app/static/results
-app/static/uploads
+# Ignore .env file to prevent uploading sensitive information
 .env
+
+# Ignore client secret file for Google OAuth
 client_secret.json
-# don't add unneccessary files
+
+# Python related ignores
+__pycache__/
+*.py[cod]
+
+# Ignore compiled files
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# FastAPI related ignores
+*.log
+*.sqlite3
+
+# Ignore static files uploads and results directories
+app/static/uploads/
+app/static/results/
+
+# Ignore environment files and dependencies
+venv/
+.env/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE and editor settings
+.vscode/
+.idea/
+
+# Ignore lock files for dependencies
+Pipfile.lock
+poetry.lock

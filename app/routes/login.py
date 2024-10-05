@@ -1,16 +1,14 @@
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, Request, Response
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
-from app.database import users_collection  # Import the specific collection
-from app.helpers.auth_helper import verify_password, create_access_token  # Helper functions
+from app.database import users_collection  
+from app.helpers.auth_helper import verify_password, create_access_token
+import json
 
-# Set up Jinja2 templates
 templates = Jinja2Templates(directory="app/templates")
 
-# Create router
 router = APIRouter()
 
-# Login Page (GET)
 @router.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request, error: str = None):
     return templates.TemplateResponse(
@@ -23,25 +21,38 @@ async def login_page(request: Request, error: str = None):
         }
     )
 
-# Handle login form submission (POST)
 @router.post("/login", response_class=HTMLResponse)
-async def handle_login(request: Request, email: str = Form(...), password: str = Form(...)):
+async def handle_login(request: Request, response: Response, email: str = Form(...), password: str = Form(...)):
     try:
-        # Query the user from the 'users' collection
         user = await users_collection.find_one({"email": email})
 
-        # Check if the user exists and the password is valid
         if user and verify_password(password, user["hashed_password"]):
-            # Generate JWT token for authentication
             token = create_access_token(data={"sub": str(user["_id"])})
-            return RedirectResponse(
-                url=f"/home?message=Welcome+{email}&token={token}",
-                status_code=303
+
+            # Create a cookie storing email and name (if available)
+            cookie_data = {
+                "email": user["email"],
+                "name": user.get("name", "User")  # Use "User" if no name is in DB
+            }
+            cookie_value = json.dumps(cookie_data)
+
+            # Set cookie
+            response = RedirectResponse(url="/home", status_code=303)
+            response.set_cookie(
+                key="user_info", 
+                value=cookie_value, 
+                httponly=True, 
+                secure=True, 
+                samesite="Lax"
             )
+
+            # Print the cookie value
+            print(f"Cookie set: user_info={cookie_value}")
+
+            return response
         else:
-            # Invalid credentials
             return RedirectResponse(
-                url=f"/login?error=Invalid+credentials",
+                url="/login?error=Invalid+credentials", 
                 status_code=303
             )
     except Exception as e:

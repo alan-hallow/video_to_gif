@@ -477,32 +477,38 @@
 
     // for uploading to tenor code
     function sendDataToBackend(url, gifLocation) {
-      // Create form data
-      const formData = new FormData();
-      formData.append('gif_location', gifLocation);
+  // Create form data
+  const formData = new FormData();
+  formData.append('gif_location', gifLocation);
 
-      // Send form data with fetch
-      fetch(url, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(responseData => {
-        console.log('Success:', responseData);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+  // Send form data with fetch
+  fetch(url, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    return response.json();
+  })
+  .then(responseData => {
+    console.log('Success:', responseData);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
 
-    // Event listener for button click
-    document.getElementById('submitButton').addEventListener('click', function() {
-      // Get the gifLocation value from the input field
-      const gifLocation = document.getElementById('value_for_gif_location_upload_tenor').value;
-      
-      // Call the function to send data
-      sendDataToBackend('/upload_to_tenor', gifLocation);
-    });
+// Event listener for button click
+document.getElementById('submitButton').addEventListener('click', function() {
+  // Get the gifLocation value from the input field
+  const gifLocation = document.getElementById('value_for_gif_location_upload_tenor').value;
+  
+  // Call the function to send data
+  sendDataToBackend('http://127.0.0.1:8000/upload_to_tenor', gifLocation);
+});
+
     // for uplaoding to tenor code ends here
   </script>
 </html>
