@@ -11,13 +11,23 @@ router = APIRouter()
 
 @router.get("/signup", response_class=HTMLResponse)
 async def signup_page(request: Request, error: str = None):
+    
+    # Retrieve cookies from the request
+    user_email = request.cookies.get('email')
+    user_name = request.cookies.get('name')
+    picture = request.cookies.get('picture')
     return templates.TemplateResponse(
         "signup.html", 
         {
             "request": request,
             "title": "Sign Up",
             "css": "../static/styles/signup_page.css",
-            "error": error
+            "error": error,
+            "user": {
+                "email": user_email,
+                "name": user_name,
+                'picture': picture
+            }
         }
     )
 

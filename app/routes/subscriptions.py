@@ -8,4 +8,14 @@ router = APIRouter()
 
 @router.get("/subscriptions", response_class=HTMLResponse)
 async def subscriptions_page(request: Request):
-    return templates.TemplateResponse("subscriptions.html", {"request": request, "title": "Subscriptions"})
+    
+    # Retrieve cookies from the request
+    user_email = request.cookies.get('email')
+    user_name = request.cookies.get('name')
+    picture = request.cookies.get('picture')
+    return templates.TemplateResponse("subscriptions.html", {"request": request, "title": "Subscriptions",
+            "user": {
+                "email": user_email,
+                "name": user_name,
+                'picture': picture
+            }})

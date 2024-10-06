@@ -58,7 +58,9 @@
     <header>
       <div class="container_whole_navbar">
         <div class="container_header_left">
-          <h2 class="header_title">VideotoGIF</h2>
+          <a href="{{ url_for('home_page')}}">
+            <h2 class="header_title">VideotoGIF</h2>
+          </a>
         </div>
         <div class="container_header_middle">
           <p class="header_middle_link">
@@ -77,14 +79,32 @@
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
         </div>
+        {% if user %}
+        <div class="container_header_right">
+          <p>{{ user.name }}</p>
+          <div class="container_profile_image">
+            <img
+              src="{{ user.picture }}"
+              alt=""
+              style="
+                height: 35px;
+                width: 35px;
+                border-radius: 100px;
+                background-color: red;
+              "
+            />
+          </div>
+        </div>
+        {% else %}
         <div class="container_header_right">
           <p class="header_right_link">
             <a href="{{ url_for('login_page') }}">Login</a>
           </p>
           <p class="header_right_link">
-            <a href="{{ url_for('signup_page') }}">Signin</a>
+            <a href="{{ url_for('signup_page') }}">Sign Up</a>
           </p>
         </div>
+        {% endif %}
       </div>
     </header>
     <div

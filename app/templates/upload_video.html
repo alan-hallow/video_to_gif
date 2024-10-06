@@ -12,6 +12,9 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <!-- header font -->
      
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,7 +29,9 @@
     <header>
       <div class="container_whole_navbar">
         <div class="container_header_left">
-          <h2 class="header_title">VideotoGIF</h2>
+          <a href="{{ url_for('home_page')}}">
+            <h2 class="header_title">VideotoGIF</h2>
+          </a>
         </div>
         <div class="container_header_middle">
           <p class="header_middle_link">
@@ -42,15 +47,32 @@
           <p class="header_middle_link">
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
+        </div>{% if user %}
+        <div class="container_header_right">
+          <p>{{ user.name }}</p>
+          <div class="container_profile_image">
+            <img
+              src="{{ user.picture }}"
+              alt=""
+              style="
+                height: 35px;
+                width: 35px;
+                border-radius: 100px;
+                background-color: red;
+              "
+            />
+          </div>
         </div>
+        {% else %}
         <div class="container_header_right">
           <p class="header_right_link">
             <a href="{{ url_for('login_page') }}">Login</a>
           </p>
           <p class="header_right_link">
-            <a href="{{ url_for('signup_page') }}">Signin</a>
+            <a href="{{ url_for('signup_page') }}">Sign Up</a>
           </p>
         </div>
+        {% endif %}
       </div>
     </header>
     <div class="container_whole_upload_video">
@@ -114,17 +136,14 @@
                     </button>
                   </div>
                   <div class="container_left_right_side">
-                    <div
-                      id="video-thumbnails"
-                      class="container_thumbnail_or_generated_gif"
-                    >
+                    <div id="video-thumbnails" class="container_thumbnail_or_generated_gif">
                       <img
                         src="../../static/results/{{ gif_location }}"
                         alt="Upload video to create gif"
                         style="
-                          width: 450px;
+                          width: 100%;
                           height: 300px;
-                          border-radius: 20px;
+                          border-radius: inherit;
                           z-index: 20;
                           display: flex;
                           align-items: center;
@@ -133,32 +152,85 @@
                       />
                       <!-- Thumbnails will be added here -->
                     </div>
+                  
                     <div class="container_usual_stuff">
                       <p class="container_usual_stuff_p">
-                        Convert your favorite videos into high-quality GIFs with
-                        ease. Simply Upload the Video, select the desired settings,
-                        and let our tool generate a custom GIF for you to share
-                        instantly!
+                        Convert your favorite videos into high-quality GIFs with ease. Simply Upload
+                        the Video, select the desired settings, and let our tool generate a custom
+                        GIF for you to share instantly!
                       </p>
                     </div>
-
+                  
                     {% if gif_location %}
-                      <div class="container_add_to_tenor">
-                        <p>Upload to Tenor.com</p>
-                        <input type="text" style="display: none;" value="{{ gif_location }}" id="value_for_gif_location_upload_tenor">
-                        <button type="submit" id="submitButton" class="upload_to_tenor_button">Upload</button>
-                      </div>
-                    {% endif %}
-                    <button
-                      type="submit"
-                      onclick="loading_Button()"
-                      class="container_left_right_side_button"
-                    >
-                      Generate Gif
+                    <button class="container_generated_gif_full_options" onclick="hide_or_show_options()" style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      height: 50px;
+                      width: 90%;
+                      background-color: #332543;
+                      border-radius: 15px;
+                      cursor: pointer;
+                      border: none;
+                      outline: none;
+                      color: white;
+                      font-size: 16px;
+                      user-select: none;
+                      transition: 0.2s;">
+                      <p>Options</p>
+                      <span class="material-symbols-outlined" id="options_bottom_arrow">
+                        keyboard_arrow_down
+                      </span>
                     </button>
 
-                    
+                    <div class="container_for_generated_gif_options" id="container_for_generated_gif_options" 
+                    style="display: none;">
+
+                      <button class="container_option container_option_download" onclick="download_generated_gif_whole_page()">
+
+                        <span class="material-symbols-outlined">download</span>
+                        <p>Download GIF</p>
+
+                      </button>
+                  
+                      <button class="container_option container_option_upload_giffy" onclick="upload_generated_gif_giffy()">
+                        
+                        <span class="material-symbols-outlined">
+                        upload
+                        </span><p>Upload to Giffy</p>
+                      
+                      </button>
+
+                      <button class="container_option container_option_upload_tenor" onclick="upload_generated_gif_tenor()">
+                        
+                        <span class="material-symbols-outlined">
+                        upload
+                        </span><p>Upload to Tenor</p>
+                      
+                      </button>
+
+                      <button class="container_option container_option_share" onclick="share_generated_gif()">
+                        
+                        <span class="material-symbols-outlined">
+                        send
+                        </span><p>Share GIF</p>
+                      
+                      </button>
+                    </div>
+                    {% endif %}
+                  
+                    <div class="container_main_button_generate_gif">
+                      <button
+                        type="submit"
+                        onclick="loading_Button()"
+                        class="container_left_right_side_button"
+                      >
+                        Generate Gif
+                      </button>
+                    </div>
                   </div>
+                  
+                </div>
               </div>
             </div>
           </div>
@@ -208,12 +280,12 @@
                   width: 296px;
                   border-radius: 10px;
                   border: 2px solid #8d99ae;
-                  background-color: #000;
+                  background-color: #382945;
                   color: white;
                   outline: none;
                   padding: 10px;
                   resize: none;
-                  font-family: Arial, sans-serif;
+                  font-family: 'Inter', sans-serif;
                   font-size: 14px;
                 "
               ></textarea>
@@ -374,6 +446,24 @@
         </div>
       </form>
     </div>
+    <div class="container_whole_blurred_background_for_options" id="container_whole_blurred_background_for_options">
+      <button class="container_whole_blurred_background_for_options_close" onclick="close_whole_container_for_options()"><span class="material-symbols-outlined">
+        close
+        </span></button>
+    </div>
+
+    <div class="container_download_gif_whole" id="container_download_gif_whole">
+      <div class="container_download_gif_image">
+        <img src="../../static/results/{{ gif_location }}" alt="">
+      </div>
+      <div class="container_download_gif_rest_content">
+        <p>{{ video_upload_message }}</p>
+        <button onclick="download_generated_gif()">Download GIF</button>
+      </div>
+    </div>
+    <div class="container_upload_gif_giphy_whole" id="container_upload_gif_giphy_whole"></div>
+    <div class="container_upload_gif_tenor_whole" id="container_upload_gif_tenor_whole"></div>
+    <div class="container_share_gif_whole" id="container_share_gif_whole"></div>
   </body>
   <script>
     const uploadContainer = document.getElementById("file_upload_drop_area");
@@ -510,5 +600,67 @@ document.getElementById('submitButton').addEventListener('click', function() {
 });
 
     // for uplaoding to tenor code ends here
+
+    // code for generated gif options
+  // const optionsButton = document.getElementById('container_generated_gif_full_options');
+  // const gifOptions = document.getElementById('container_for_generated_gif_options');
+
+  // optionsButton.addEventListener('click', () => {
+  //   if (gifOptions.style.display === 'none' || gifOptions.style.display === '') {
+  //     gifOptions.style.display = 'block';  // Show the options
+  //   } else {
+  //     gifOptions.style.display = 'none';  // Hide the options
+  //   }
+  // });
+  function hide_or_show_options() {
+    let gifOptions = document.getElementById('container_for_generated_gif_options');
+    
+    let bottom_arrow = document.getElementById('options_bottom_arrow')
+    // Check if the current display is 'none', and toggle it
+    if (gifOptions.style.display === 'none' || gifOptions.style.display === '') {
+        gifOptions.style.display = 'flex';
+        bottom_arrow.style.rotate = '180deg';
+    } else {
+        gifOptions.style.display = 'none'; 
+        bottom_arrow.style.rotate = '0deg';
+    }
+}
+
+
+
+
+
+    function close_whole_container_for_options(){
+      document.getElementById('container_whole_blurred_background_for_options').style.display = 'none'
+      document.getElementById('container_download_gif_whole').style.display= 'none'
+      document.getElementById('container_upload_gif_giphy_whole').style.display = 'none'
+      document.getElementById('container_upload_gif_tenor_whole').style.display = 'none'
+      document.getElementById('container_upload_gif_tenor_whole').style.display = 'none'
+    }
+    // code for generated gif options ends here
+
+    function download_generated_gif_whole_page(){
+      let whole_page_container = document.getElementById('container_whole_blurred_background_for_options');
+      let displayStyle = window.getComputedStyle(whole_page_container).display;
+
+      // Check if the container is hidden
+      if (displayStyle === 'none'){
+          whole_page_container.style.display = 'flex'; // Show blurred background
+          document.getElementById('container_download_gif_whole').style.display = 'flex'; // Show download options
+          // Ensure other containers are hidden
+          document.getElementById('container_upload_gif_giphy_whole').style.display = 'none';
+          document.getElementById('container_upload_gif_tenor_whole').style.display = 'none';
+      }
+    }
+
+    function download_generated_gif() {
+        const imageUrl = document.querySelector('img[src*="{{ gif_location }}"]').src;
+        const downloadLink = document.createElement('a');
+        downloadLink.href = imageUrl;
+        downloadLink.download = 'downloaded-gif.gif';
+        downloadLink.click();
+    }
+
+    // code for downloading gif ends here
   </script>
 </html>

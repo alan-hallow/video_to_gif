@@ -77,9 +77,10 @@ async def google_callback(request: Request):
         response = RedirectResponse(url="/home")  # Redirect to home after login
         response.set_cookie(key="email", value=user_info["email"])
         response.set_cookie(key="name", value=user_info.get("name", "Unknown"))
+        response.set_cookie(key="picture", value=user_info.get("picture", "Unknown"))
 
         # Print confirmation of the cookie being set
-        print(f"Cookie set: email={user_info['email']}, name={user_info.get('name', 'Unknown')}")
+        print(f"Cookie set: email={user_info['email']}, name={user_info.get('name', 'Unknown')}, picture={user_info.get('picture', 'Unknown')}")
 
         return response
 

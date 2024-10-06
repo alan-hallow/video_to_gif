@@ -80,7 +80,7 @@ async def process_video_upload_with_caption(upload_video: UploadFile, captions, 
 
         await upload_video.close()
 
-        return {"status": "success", "gif_location": gif_filename, "message": f"Video '{upload_video.filename}' converted to GIF successfully!"}
+        return {"status": "success", "gif_location": gif_filename, "message": upload_video.filename}
     except FileNotFoundError as fnf_error:
         print(f"Font file error: {fnf_error}")
         return {"status": "error", "message": f"Font file error: {str(fnf_error)}"}
