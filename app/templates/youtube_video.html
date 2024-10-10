@@ -47,13 +47,13 @@
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
         </div>
-        {% if user %}
+        {% if user and user.name and user.picture %}
         <div class="container_header_right">
           <p>{{ user.name }}</p>
           <div class="container_profile_image">
             <img
               src="{{ user.picture }}"
-              alt=""
+              alt="Profile Image"
               style="
                 height: 35px;
                 width: 35px;

@@ -9,11 +9,10 @@ router = APIRouter()
 @router.get("/home", response_class=HTMLResponse)
 async def home_page(request: Request):
     # Retrieve cookies from the request
-    user_email = request.cookies.get('email')
-    user_name = request.cookies.get('name')
-    picture = request.cookies.get('picture')
+    user_email = request.cookies.get('email', None)
+    user_name = request.cookies.get('name', None)
+    picture = request.cookies.get('picture', None)
 
-    print(picture)
     # Pass the user data to the template
     return templates.TemplateResponse(
         "home.html", 

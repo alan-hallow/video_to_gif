@@ -66,13 +66,13 @@
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
         </div>
-        {% if user %}
+        {% if user and user.name and user.picture %}
         <div class="container_header_right">
           <p>{{ user.name }}</p>
           <div class="container_profile_image">
             <img
               src="{{ user.picture }}"
-              alt=""
+              alt="Profile Image"
               style="
                 height: 35px;
                 width: 35px;
@@ -430,10 +430,10 @@
               >Signin</a
             >
             <a
-              href="#"
+              href="{{ url_for('signout') }}"
               class="container_footer_bottom_right_button container_footer_profile"
               ><span class="material-symbols-outlined"> account_circle </span
-              >Profile</a
+              >Signout</a
             >
           </div>
         </div>
@@ -466,5 +466,10 @@
         .getElementById("mouse-follow")
         .style.setProperty("--mouse-y", `${y}px`);
     };
+
+    document.cookie = "email=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+    document.cookie = "name=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+    document.cookie =
+      "picture=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
   </script>
 </html>

@@ -47,13 +47,14 @@
           <p class="header_middle_link">
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
-        </div>{% if user %}
+        </div>
+        {% if user and user.name and user.picture %}
         <div class="container_header_right">
           <p>{{ user.name }}</p>
           <div class="container_profile_image">
             <img
               src="{{ user.picture }}"
-              alt=""
+              alt="Profile Image"
               style="
                 height: 35px;
                 width: 35px;
@@ -73,6 +74,8 @@
           </p>
         </div>
         {% endif %}
+
+        
       </div>
     </header>
     <div class="container_whole_upload_video">
@@ -244,8 +247,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                width: 300px;
-                padding-right: 40px;
+                width: 100%;
               "
             >
               <p class="control_panel_paragraph">Captions</p>
@@ -263,7 +265,7 @@
               <p class="control_panel_paragraph">
                 <span
                   class="material-symbols-outlined"
-                  style="font-size: 18px; color: #555555"
+                  style="font-size: 14px; color: #555555"
                 >
                   subtitles </span
                 >Captions
@@ -277,7 +279,7 @@
                 
                 style="
                   height: 150px;
-                  width: 296px;
+                  width: 100%;
                   border-radius: 10px;
                   border: 2px solid #8d99ae;
                   background-color: #382945;
@@ -387,7 +389,7 @@
               <input
                 class="control_panel_seekbar"
                 type="range"
-                min="1"
+                min="0"
                 max="10"
                 name="shadow_offset"
                 value="4"
@@ -413,7 +415,7 @@
               />
             </div>
 
-            <div class="container_whole_right_side_components be_hidden">
+            <div class="container_whole_right_side_components be_hidden" style="margin-bottom: 100px;">
               <label for="caption_fonts" class="control_panel_paragraph"
                 ><span
                   class="material-symbols-outlined"
@@ -453,6 +455,7 @@
     </div>
 
     <div class="container_download_gif_whole" id="container_download_gif_whole">
+
       <div class="container_download_gif_image">
         <img src="../../static/results/{{ gif_location }}" alt="">
       </div>
@@ -460,11 +463,66 @@
         <p>{{ video_upload_message }}</p>
         <button onclick="download_generated_gif()">Download GIF</button>
       </div>
+
     </div>
-    <div class="container_upload_gif_giphy_whole" id="container_upload_gif_giphy_whole"></div>
-    <div class="container_upload_gif_tenor_whole" id="container_upload_gif_tenor_whole"></div>
-    <div class="container_share_gif_whole" id="container_share_gif_whole"></div>
+
+
+    <div class="container_upload_gif_giphy_whole" id="container_upload_gif_giphy_whole">
+
+      
+      <div class="container_upload_gif_giphy">
+        <img src="../../static/results/{{ gif_location }}" alt="">
+      </div>
+      <div class="container_upload_gif_giphy_rest_content">
+        <p>{{ video_upload_message }}</p>
+        <form action="/upload_to_giphy" method="post">
+
+          <input type="text" name="gif_location" value="{{ gif_location}}" style="display: none;">
+          <button type="submit" class="container_uplaod_giphy_button">Upload to giphy.com</button>
+
+        </form>
+        </div>
+
+    </div>
+
+
+    <div class="container_upload_gif_tenor_whole" id="container_upload_gif_tenor_whole">
+
+      
+      <div class="container_upload_gif_giphy">
+        <img src="../../static/results/{{ gif_location }}" alt="">
+      </div>
+      <div class="container_upload_gif_giphy_rest_content">
+        <p>{{ video_upload_message }}</p>
+        <form action="/upload_to_tenor" method="post">
+
+          <input type="text" name="gif_location" value="{{ gif_location}}" style="display: none;">
+          <button type="submit" class="container_uplaod_giphy_button">Upload to tenor.com</button>
+
+        </form>
+        </div>
+      
+    </div>
+
+
+    <div class="container_share_gif_whole" id="container_share_gif_whole">
+
+      
+      <div class="container_share_gif_image">
+        <img src="../../static/results/{{ gif_location }}" alt="">
+      </div>
+      <div class="container_share_gif_rest_content">
+        <p>{{ video_upload_message }}</p>
+        <button onclick="share_generated_gif()">Share GIF</button>
+      </div>
+
+    </div>
   </body>
+
+
+
+
+  
   <script>
     const uploadContainer = document.getElementById("file_upload_drop_area");
     const fileInput = document.getElementById("upload_video");
@@ -635,7 +693,7 @@ document.getElementById('submitButton').addEventListener('click', function() {
       document.getElementById('container_download_gif_whole').style.display= 'none'
       document.getElementById('container_upload_gif_giphy_whole').style.display = 'none'
       document.getElementById('container_upload_gif_tenor_whole').style.display = 'none'
-      document.getElementById('container_upload_gif_tenor_whole').style.display = 'none'
+      document.getElementById('container_share_gif_whole').style.display = 'none'
     }
     // code for generated gif options ends here
 
@@ -662,5 +720,51 @@ document.getElementById('submitButton').addEventListener('click', function() {
     }
 
     // code for downloading gif ends here
+
+    function upload_generated_gif_giffy(){
+      let whole_page_container = document.getElementById('container_whole_blurred_background_for_options');
+      let displayStyle = window.getComputedStyle(whole_page_container).display;
+
+      // Check if the container is hidden
+      if (displayStyle === 'none'){
+          whole_page_container.style.display = 'flex'; // Show blurred background
+          document.getElementById('container_upload_gif_giphy_whole').style.display = 'flex'; // Show download options
+          // Ensure other containers are hidden
+          document.getElementById('container_download_gif_whole').style.display = 'none';
+          document.getElementById('container_upload_gif_tenor_whole').style.display = 'none';
+      }
+    }
+
+
+    function upload_generated_gif_tenor(){
+      let whole_page_container = document.getElementById('container_whole_blurred_background_for_options');
+      let displayStyle = window.getComputedStyle(whole_page_container).display;
+
+      // Check if the container is hidden
+      if (displayStyle === 'none'){
+          whole_page_container.style.display = 'flex'; // Show blurred background
+          document.getElementById('container_upload_gif_giphy_whole').style.display = 'none'; // Show download options
+          // Ensure other containers are hidden
+          document.getElementById('container_download_gif_whole').style.display = 'none';
+          document.getElementById('container_upload_gif_tenor_whole').style.display = 'flex';
+      }
+
+    }
+
+
+    function share_generated_gif(){
+      let whole_page_container = document.getElementById('container_whole_blurred_background_for_options');
+      let displayStyle = window.getComputedStyle(whole_page_container).display;
+
+      // Check if the container is hidden
+      if (displayStyle === 'none'){
+          whole_page_container.style.display = 'flex'; // Show blurred background
+          document.getElementById('container_upload_gif_giphy_whole').style.display = 'none'; // Show download options
+          // Ensure other containers are hidden
+          document.getElementById('container_download_gif_whole').style.display = 'none';
+          document.getElementById('container_upload_gif_tenor_whole').style.display = 'none';
+          document.getElementById('container_share_gif_whole').style.display = 'flex';
+      }
+    }
   </script>
 </html>

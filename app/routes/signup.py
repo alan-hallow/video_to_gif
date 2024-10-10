@@ -85,3 +85,4 @@ async def handle_signup(request: Request, response: Response, name:str = Form(..
             url="/signup?error=An+unexpected+error+occurred",
             status_code=303
         )
+

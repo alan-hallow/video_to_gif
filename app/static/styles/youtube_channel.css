@@ -17,7 +17,7 @@ body {
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  background-color: #121212;
+  background-color: #13072290;
   backdrop-filter: blur(100px);
   height: 50px;
   width: 100vw;
@@ -86,7 +86,8 @@ header a {
 .container_whole_left_side {
   padding-bottom: 300px;
   padding-left: 100px;
-  background-color: #000;
+  /* background-color: #000; */
+  background-image: linear-gradient(to top right, #463657, #4e3f5a);
   padding-top: 50px;
 
   display: flex;
@@ -118,7 +119,7 @@ header a {
 }
 
 .container_left_right_side {
-  background-color: #0f0f0f;
+  background-color: #382945;
   border-radius: 45px;
   width: 700px;
   display: flex;
@@ -163,8 +164,8 @@ header a {
 .container_usual_stuff {
   height: 130px;
   width: 640px;
-  background-color: #0a0a0a;
-  border-radius: 15px;
+  background-color: #332543;
+  border-radius: 18px;
   padding: 0;
 }
 
@@ -396,7 +397,7 @@ input:checked + .slider:before {
 .container_whole_right_side {
   height: 100vh;
   width: 20vw;
-  background-color: #0a0a0a;
+  background-color: #130321;
   outline: 2px solid #2f2f2f;
   position: fixed;
   top: 0;

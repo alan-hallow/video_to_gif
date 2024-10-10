@@ -79,13 +79,13 @@
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
         </div>
-        {% if user %}
+        {% if user and user.name and user.picture %}
         <div class="container_header_right">
           <p>{{ user.name }}</p>
           <div class="container_profile_image">
             <img
               src="{{ user.picture }}"
-              alt=""
+              alt="Profile Image"
               style="
                 height: 35px;
                 width: 35px;
@@ -146,7 +146,7 @@
               width: 560px;
               height: 60px;
               border-radius: 5px;
-              background-color: transparent;
+              background-color: #332543;
               outline: 2px solid #2b2d42;
               border: none;
             "
@@ -201,7 +201,7 @@
               border-radius: 5px;
               outline: none;
               border: none;
-              background-color: transparent;
+              background-color: #332543;
               border: 2px solid #161616;
               color: white;
               font-size: 20px;
@@ -221,7 +221,7 @@
               border-radius: 5px;
               outline: none;
               border: none;
-              background-color: transparent;
+              background-color: #332543;
               border: 2px solid #161616;
               color: white;
               font-size: 20px;
@@ -240,7 +240,7 @@
               border-radius: 5px;
               outline: none;
               border: none;
-              background-color: transparent;
+              background-color: #332543;
               border: 2px solid #161616;
               color: white;
               font-size: 20px;
@@ -259,7 +259,7 @@
               border-radius: 5px;
               outline: none;
               border: none;
-              background-color: transparent;
+              background-color: #332543;
               border: 2px solid #161616;
               color: white;
               font-size: 20px;
@@ -287,7 +287,7 @@
 
       <p>
         Already have an account?
-        <a href="{{ url_for('login_page') }}">Login</a>
+        <a href="{{ url_for('login_page') }}" style="color: yellow">Login</a>
       </p>
     </div>
   </body>

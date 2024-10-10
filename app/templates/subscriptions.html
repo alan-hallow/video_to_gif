@@ -14,16 +14,15 @@
     />
     <!-- google icons ends -->
 
-    
     <!-- header font -->
-     
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-     <!-- header font -->
+    <!-- header font -->
   </head>
   <body>
     <!-- <header>
@@ -79,17 +78,20 @@
           <p class="header_middle_link">
             <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
           </p>
-          <p class="header_middle_link"><a href="{{ url_for('google_photos_page') }}">Photos</a></p>
+          <p class="header_middle_link">
+            <a href="{{ url_for('google_photos_page') }}">Photos</a>
+          </p>
           <p class="header_middle_link">
             <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
           </p>
-        </div>{% if user %}
+        </div>
+        {% if user and user.name and user.picture %}
         <div class="container_header_right">
           <p>{{ user.name }}</p>
           <div class="container_profile_image">
             <img
               src="{{ user.picture }}"
-              alt=""
+              alt="Profile Image"
               style="
                 height: 35px;
                 width: 35px;
@@ -237,7 +239,9 @@
   </body>
   <style>
     body {
-      background-color: black;
+      background-color: gray;
+
+      background-image: linear-gradient(to top right, #463657, #4e3f5a);
       color: white;
       padding: 0;
       margin: 0;
@@ -255,6 +259,7 @@
       cursor: pointer;
       transition: 0.3s;
       padding: 20px;
+      margin-bottom: 100px;
     }
 
     .container_cards_options:hover {
@@ -273,5 +278,77 @@
       text-decoration: none;
       cursor: pointer;
     }
+
+    /* header */
+
+    .container_whole_navbar {
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr;
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+      background-color: #13072290;
+      backdrop-filter: blur(100px);
+      height: 50px;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      user-select: none;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .container_header_left {
+      grid-area: 1 / 1 / 2 / 2;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      padding-left: 100px;
+    }
+
+    .container_header_middle {
+      grid-area: 1 / 2 / 2 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .container_header_right {
+      grid-area: 1 / 3 / 2 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      gap: 20px;
+      padding-right: 100px;
+    }
+
+    .header_title {
+      padding: 0;
+      margin: 0;
+    }
+
+    .header_middle_link {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header_right_link {
+      padding: 0;
+      margin: 0;
+    }
+
+    /* header */
   </style>
 </html>

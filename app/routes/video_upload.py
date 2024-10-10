@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Request, UploadFile, File, Form,  Header, HTTPException
+from fastapi import APIRouter, Request, UploadFile, File, Form, HTTPException
 from fastapi.responses import RedirectResponse, HTMLResponse
 from app.helpers.upload_video_helper import process_video_upload, process_video_upload_with_caption
-
 from app.helpers.tenor_login_helper import make_authenticated_request 
 from app.helpers.upload_tenor_helper import register_event_one, register_event_two, upload_gif
+from app.helpers.upload_giphy_helper import upload_gif_to_giphy
 from fastapi.templating import Jinja2Templates
+import os
 
 templates = Jinja2Templates(directory="app/templates")
 
@@ -16,6 +17,7 @@ async def upload_video_page(request: Request, gif_location: str = None, video_up
     user_email = request.cookies.get('email')
     user_name = request.cookies.get('name')
     picture = request.cookies.get('picture')
+
     return templates.TemplateResponse(
         "upload_video.html", 
         {
@@ -34,18 +36,41 @@ async def upload_video_page(request: Request, gif_location: str = None, video_up
     )
 
 @router.post('/video_upload', response_class=HTMLResponse)
-async def handle_video_upload(request: Request, upload_video: UploadFile = File(...),captions_bool:bool = Form(...), captions: str = Form(...), font_size: str= Form(...), boldness: str= Form(...), font_color_one: str= Form(...), font_color_two: str= Form(...), outline_color: str= Form(...), shadow_color: str= Form(...), shadow_offset: str= Form(...), line_spacing: str= Form(...), font: str= Form(...)):
+async def handle_video_upload(
+    request: Request,
+    upload_video: UploadFile = File(...),
+    captions_bool: bool = Form(...),
+    captions: str = Form(None),
+    font_size: str = Form(None),
+    boldness: str = Form(None),
+    font_color_one: str = Form(None),
+    font_color_two: str = Form(None),
+    outline_color: str = Form(None),
+    shadow_color: str = Form(None),
+    shadow_offset: str = Form(None),
+    line_spacing: str = Form(None),
+    font: str = Form(None)
+):
     try:
+        # Process video upload with or without captions
         if captions_bool:
-
-            print("with captiueknfakjf")
-
-            result = await process_video_upload_with_caption(upload_video, captions, font_size, boldness, font_color_one, font_color_two, outline_color, shadow_color, shadow_offset="4,4", line_spacing=10, font="Oswald.ttf")
+            result = await process_video_upload_with_caption(
+                upload_video,
+                captions,
+                font_size,
+                boldness,
+                font_color_one,
+                font_color_two,
+                outline_color,
+                shadow_color,
+                shadow_offset="4,4",  # Default value
+                line_spacing=10,       # Default value
+                font="Oswald.ttf"      # Default font
+            )
         else:
-            print(captions_bool)
-            print('wekjfekj')
             result = await process_video_upload(upload_video)
 
+        # Handle result based on status
         if result["status"] == "success":
             gif_location = result["gif_location"]
             video_upload_message = result["message"]
@@ -66,13 +91,11 @@ async def handle_video_upload(request: Request, upload_video: UploadFile = File(
             status_code=303
         )
 
-
-
 @router.post('/upload_to_tenor')
 async def upload_to_tenor(gif_location: str = Form(...)):
     try:
-        # Your logic to handle the GIF upload
-        result = await make_authenticated_request()
+        # Tenor API logic
+        result = make_authenticated_request()  # Removed 'await' since it's likely a synchronous function
         return {"message": "Successfully uploaded to Tenor", "result": result}
     except Exception as e:
         print(f"Unexpected error: {e}")
@@ -81,40 +104,28 @@ async def upload_to_tenor(gif_location: str = Form(...)):
             status_code=303
         )
 
-# @router.post("/upload_to_tenor")
-# async def upload_to_tenor(gif_location: str = Form(...)):
-#     try:
-#         # Ensure gif_location is provided
-#         if not gif_location:
-#             raise HTTPException(status_code=400, detail="GIF location form data is required.")
+@router.post('/upload_to_giphy')
+async def upload_to_giphy(request: Request, gif_location: str = Form(...)):
+    try:
+        # Dynamically get the file path for the GIF
+        file_path = os.path.abspath(os.path.join(os.getcwd(), 'app', 'static', 'results', gif_location))
+        print(file_path)
 
-#         print('Processing upload to Tenor...')
+        tags = "funny, gif, new"
+        source_post_url = None
 
-#         # Step 1: Authenticate with Tenor
-#         access_token = await make_authenticated_request()  # Assuming this is async now
+        upload_gif_to_giphy(file_path=file_path, tags=tags, source_post_url=source_post_url)
 
-#         # Step 2: Execute async events and GIF upload
-#         # result_one = await register_event_one()   # Uncomment if needed
-#         # result_two = await register_event_two()   # Uncomment if needed
-#         result_three = await upload_gif(gif_location, access_token)  # Assuming upload_gif is an async function that accepts the access token
-        
-#         # Extract the message from the GIF upload result
-#         video_upload_message = result_three.get("message", "Upload completed")
+        # Get the previous page from the Referer header
+        referer_url = request.headers.get("Referer")
+        if referer_url:
+            return RedirectResponse(url=referer_url, status_code=303)
+        else:
+            return {"message": "Successfully uploaded to Giphy, but no referer URL found."}
 
-#         # Redirect the user to the video upload page with success message
-#         return RedirectResponse(
-#             url=f"/home/upload_video?gif_location={gif_location}&video_upload_message={video_upload_message}",
-#             status_code=303
-#         )
-#     except HTTPException as he:
-#         print(f"HTTP error: {he.detail}")
-#         return RedirectResponse(
-#             url=f"/home/upload_video?error={he.detail}",
-#             status_code=303
-#         )
-#     except Exception as e:
-#         print(f"Unexpected error: {e}")
-#         return RedirectResponse(
-#             url=f"/home/upload_video?error=An unexpected error occurred.",
-#             status_code=303
-#         )
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return RedirectResponse(
+            url=f"/home/upload_video?error=An unexpected error occurred.",
+            status_code=303
+        )

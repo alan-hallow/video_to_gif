@@ -3,11 +3,9 @@ body {
   margin: 20px;
 }
 
-
 /* header */
 
 .container_whole_navbar {
-
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -17,7 +15,7 @@ body {
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  background-color: #121212;
+  background-color: #13072290;
   backdrop-filter: blur(100px);
   height: 50px;
   width: 100vw;
@@ -109,7 +107,7 @@ button:hover {
 }
 
 body {
-  background-color: black;
+  background-image: linear-gradient(to top right, #463657, #4e3f5a);
   color: white;
   padding: 0;
   margin: 0;
@@ -121,7 +119,7 @@ body {
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  background-color: #1f1f1f;
+  background-color: #13072290;
   height: 50px;
   width: 100vw;
   position: fixed;

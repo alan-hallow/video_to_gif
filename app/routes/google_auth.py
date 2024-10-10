@@ -1,5 +1,5 @@
 import os
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from google_auth_oauthlib.flow import Flow
 from google.auth.transport.requests import Request as GoogleRequest
@@ -86,3 +86,27 @@ async def google_callback(request: Request):
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Google login error: {e}")
+
+
+
+
+
+@router.get('/signout')
+async def signout(request: Request, response: Response):
+    try:
+        # Clear the individual cookies with the same path as they were set
+        response.delete_cookie("email", path="/")
+        response.delete_cookie("name", path="/")
+        response.delete_cookie("picture", path="/")
+
+        print('Cookies are destroyed')
+
+        # Redirect to the home page after signing out
+        return RedirectResponse(url="/home", status_code=303)
+
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return RedirectResponse(
+            url="/home?error=An+unexpected+error+occurred",
+            status_code=303
+        )
