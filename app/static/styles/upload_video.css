@@ -1,5 +1,7 @@
 body {
   background-color: #000;
+  background-image: url("../res/photo-1535478044878-3ed83d5456ef.avif");
+  background-size: cover;
   color: white;
   padding: 0;
   margin: 0;
@@ -131,14 +133,12 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: space-between;
 }
-
 .container_whole_left_side {
   padding-bottom: 300px;
   padding-left: 100px;
-  background-color: #000;
-  background-image: linear-gradient(to top right, #463657, #4e3f5a);
+  background-color: transparent;
+  backdrop-filter: blur(100px) brightness(20%);
   padding-top: 50px;
-
   display: flex;
   align-items: start;
   justify-content: start;
@@ -169,7 +169,7 @@ input:checked + .slider:before {
 
 .container_left_right_side {
   grid-area: 1 / 2 / 2 / 3;
-  background-color: #382945;
+  background-color: #38294590;
   border-radius: 45px;
   width: 30vw;
   height: 100%;
@@ -182,8 +182,8 @@ input:checked + .slider:before {
 
 .container_thumbnail_or_generated_gif {
   width: 90%;
-  height: 300px;
-  background-color: #1d1d1d;
+  aspect-ratio: 3/2;
+  background-color: #1d1d1d90;
   border-radius: 20px;
   margin-top: 5%;
   display: flex;
@@ -200,7 +200,7 @@ input:checked + .slider:before {
 
 .container_usual_stuff {
   width: 90%;
-  background-color: #332543;
+  background-color: #33254390;
   border-radius: 15px;
   padding: 0;
 }
@@ -240,7 +240,7 @@ input:checked + .slider:before {
   height: 600px;
   width: 35vw;
   border-radius: 45px;
-  background-color: #382945;
+  background-color: #38294590;
   display: flex;
   align-items: center;
   justify-content: start;
@@ -284,7 +284,7 @@ input:checked + .slider:before {
 .container_selected_file {
   height: 100px;
   width: 90%;
-  background-color: #332543;
+  background-color: #33254390;
   border-radius: 20px;
   margin-top: 20px;
   display: flex;
@@ -299,7 +299,7 @@ input:checked + .slider:before {
 .container_selected_file_button {
   height: 50px;
   padding: 0 15px;
-  background-color: #4d346a;
+  background-color: #4d346a90;
   color: white;
   font-size: 20px;
   outline: none;
@@ -350,52 +350,6 @@ input:checked + .slider:before {
 }
 
 /* drag and drop file upload ends */
-
-/* Toggle switch styles */
-.ai_vision_label {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #4cd964; /* When checked */
-}
-
-input:not(:checked) + .slider {
-  background-color: #ccc; /* When not checked */
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
-/* whole right side */
 
 .container_whole_right_side {
   height: 100vh;
@@ -554,7 +508,6 @@ input[type="range"]::-moz-range-progress {
   border-radius: 34px;
 }
 
-/* The circle (the toggle) inside the slider */
 .slider:before {
   position: absolute;
   content: "";
@@ -567,17 +520,14 @@ input[type="range"]::-moz-range-progress {
   border-radius: 50%;
 }
 
-/* When the checkbox is checked, change the background color */
 .upload_to_tenor input:checked + .slider {
   background-color: #4caf50;
 }
 
-/* Move the circle when the checkbox is checked */
 .upload_to_tenor input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Add some shadow to make the switch look more appealing */
 .slider {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
@@ -585,8 +535,6 @@ input[type="range"]::-moz-range-progress {
 .container_whole_right_side_inner_subtitles:focus {
   border: 2px solid #4cd964;
 }
-
-/* button code ends */
 
 .spinner {
   border: 4px solid rgba(0, 0, 0, 0.1);
@@ -599,7 +547,6 @@ input[type="range"]::-moz-range-progress {
   margin-right: 8px;
 }
 
-/* Spinner animation */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -608,19 +555,6 @@ input[type="range"]::-moz-range-progress {
     transform: rotate(360deg);
   }
 }
-
-/* .container_generated_gif_full_options {
-  height: 50px;
-  width: 90%;
-  background-color: #332543;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  user-select: none;
-  transition: 0.2s;
-} */
 
 .container_generated_gif_full_options:hover {
   background-color: #2e1c43;
