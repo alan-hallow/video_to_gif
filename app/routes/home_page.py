@@ -1,11 +1,18 @@
 from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="app/templates")
 
 router = APIRouter()
 
+# Route for '/'
+@router.get("/", response_class=HTMLResponse)
+async def root():
+    # Redirect to the /home route
+    return RedirectResponse(url="/home")
+
+# Route for '/home'
 @router.get("/home", response_class=HTMLResponse)
 async def home_page(request: Request):
     # Retrieve cookies from the request
