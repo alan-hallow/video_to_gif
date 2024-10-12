@@ -22,39 +22,15 @@
       href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap"
       rel="stylesheet"
     />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <!-- <header>
-      <div class="container_whole_navbar">
-        <div class="container_header_left">
-          <h2 class="header_title">VideotoGIF</h2>
-        </div>
-        <div class="container_header_middle">
-          <p class="header_middle_link">
-            <a href="{{ url_for('upload_video_page') }}">Video</a>
-          </p>
-          <p class="header_middle_link">
-            <a href="{{ url_for('youtube_video_page') }}">Youtube</a>
-          </p>
-          <p class="header_middle_link">
-            <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
-          </p>
-          <p class="header_middle_link"><a href="#">Photos</a></p>
-          <p class="header_middle_link">
-            <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
-          </p>
-        </div>
-        <div class="container_header_right">
-          <p class="header_right_link">
-            <a href="{{ url_for('login_page') }}">Login</a>
-          </p>
-          <p class="header_right_link">
-            <a href="{{ url_for('signup_page') }}">Signin</a>
-          </p>
-        </div>
-      </div>
-    </header> -->
-
     <header>
       <div class="container_whole_navbar">
         <div class="container_header_left">
@@ -114,25 +90,50 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        height: 100vh;
+        height: 100%;
+        padding-bottom: 200px;
       "
     >
-      <h1
+      <div
+        class="container_title_for_main_title"
         style="
-          color: white;
-          padding: 30px;
-          font-size: 50px;
-          font-family: 'Yeseva One', serif;
-          font-weight: 400;
-          font-style: normal;
-          background: linear-gradient(to right, #fff, #fff, #8c00ff, #ffc400);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 100px;
+          user-select: none;
         "
       >
-        Login to VideotoGIF
-      </h1>
+        <h1
+          style="
+            padding: 30px;
+            font-size: 50px;
+            font-family: 'Merriweather', serif;
+            font-weight: 900;
+            font-style: normal;
+            color: #414141;
+            padding: 0;
+          "
+        >
+          Login to
+        </h1>
+        <h1
+          style="
+            color: white;
+            padding: 0 0 0 20px;
+            font-size: 50px;
+            font-family: 'Merriweather', serif;
+            font-weight: 900;
+            font-style: normal;
+            background: linear-gradient(to right, #ff686b, #9381ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          "
+        >
+          VideotoGIF
+        </h1>
+      </div>
       <form action="googleauth">
         <div class="container_google_login_design" style="margin: 10px">
           <button
@@ -143,9 +144,10 @@
               gap: 10px;
               width: 560px;
               height: 60px;
-              border-radius: 5px;
-              background-color: #332543;
+              border-radius: 10px;
+              background-color: #bec1d2;
               outline: 2px solid #2b2d42;
+              color: #414141;
               border: none;
             "
           >
@@ -158,7 +160,17 @@
           </button>
         </div>
       </form>
-      <h3>OR</h3>
+      <h3
+        style="
+          padding: 0;
+          margin: 0;
+          font-family: 'Merriweather', serif;
+          font-weight: 900;
+          font-style: normal;
+        "
+      >
+        OR
+      </h3>
       <form action="/login" method="post">
         <div
           class="container_login_credentials_complete"
@@ -172,16 +184,17 @@
           {% if error %}
           <span
             style="
-              height: 50px;
+              height: 40px;
               width: 500px;
               padding: 10px 30px;
-              border-radius: 50px;
+              border-radius: 10px;
               margin-bottom: 10px;
               display: flex;
               align-items: center;
               justify-content: center;
-              background-color: #161616;
-              color: red;
+              background-color: #d62828;
+              border: 2px solid #161616;
+              color: #fdf0d5;
               font-size: 20px;
             "
             >{{ error}}</span
@@ -197,12 +210,11 @@
             style="
               height: 40px;
               width: 500px;
-              border-radius: 5px;
+              border-radius: 10px;
               outline: none;
-              border: none;
-              background-color: #332543;
+              background-color: #bec1d2;
               border: 2px solid #161616;
-              color: white;
+              color: #414141;
               font-size: 20px;
               padding: 10px 30px;
             "
@@ -216,12 +228,11 @@
             style="
               height: 40px;
               width: 500px;
-              border-radius: 5px;
+              border-radius: 10px;
               outline: none;
-              border: none;
-              background-color: #332543;
+              background-color: #bec1d2;
               border: 2px solid #161616;
-              color: white;
+              color: #414141;
               font-size: 20px;
               padding: 10px 30px;
             "
@@ -232,7 +243,7 @@
 
       <p>
         Don't have an account?
-        <a href="{{ url_for('signup_page') }}" style="color: yellow">Signup</a>
+        <a href="{{ url_for('signup_page') }}" style="color: #ae185e">Signup</a>
       </p>
     </div>
   </body>
