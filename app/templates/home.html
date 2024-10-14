@@ -52,25 +52,25 @@
     <header>
       <div class="container_whole_navbar">
         <div class="container_header_left">
-          <a href="{{ url_for('home_page')}}">
+          <a href="/home">
             <h2 class="header_title">VideotoGIF</h2>
           </a>
         </div>
         <div class="container_header_middle">
           <p class="header_middle_link">
-            <a href="{{ url_for('upload_video_page') }}">Video</a>
+            <a href="/home/upload_video">Video</a>
           </p>
           <p class="header_middle_link">
-            <a href="{{ url_for('youtube_video_page') }}">Youtube</a>
+            <a href="/home/youtube_video">Youtube</a>
           </p>
           <p class="header_middle_link">
-            <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
+            <a href="/home/youtube_channel">Channel</a>
           </p>
           <p class="header_middle_link">
-            <a href="{{ url_for('google_photos_page') }}">Photos</a>
+            <a href="/home/google_photos">Photos</a>
           </p>
           <p class="header_middle_link">
-            <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
+            <a href="/subscriptions">Pricing</a>
           </p>
         </div>
         {% if user and user.name and user.picture %}
@@ -92,10 +92,10 @@
         {% else %}
         <div class="container_header_right">
           <p class="header_right_link">
-            <a href="{{ url_for('login_page') }}">Login</a>
+            <a href="/login">Login</a>
           </p>
           <p class="header_right_link">
-            <a href="{{ url_for('signup_page') }}">Sign Up</a>
+            <a href="/signup">Sign Up</a>
           </p>
         </div>
         {% endif %}
@@ -425,7 +425,7 @@
       <div class="container_footer">
         <div class="container_footer_main_items">
           <a
-            href="{{ url_for('home_page') }}"
+            href="/home"
             style="
               font-size: 40px;
               font-family: 'Merriweather', serif;
@@ -438,19 +438,19 @@
             "
             >VideotoGIF</a
           >
-          <a href="{{ url_for('upload_video_page') }}"
+          <a href="/home/upload_video"
             ><span class="material-symbols-outlined"> upload </span>Upload
             Video</a
           >
-          <a href="{{ url_for('youtube_video_page') }}"
+          <a href="/home/youtube_video"
             ><span class="material-symbols-outlined"> smart_display </span
             >Youtube Video</a
           >
-          <a href="{{ url_for('youtube_channel_page') }}"
+          <a href="/home/youtube_channel"
             ><span class="material-symbols-outlined"> subscriptions </span
             >Youtube Channel</a
           >
-          <a href="{{ url_for('google_photos_page') }}"
+          <a href="/home/google_photos"
             ><span class="material-symbols-outlined"> add_photo_alternate </span
             >Google Photos</a
           >
@@ -502,22 +502,22 @@
               <span class="material-symbols-outlined"> credit_card </span
               >Pricing
             </h3>
-            <a href="{{ url_for('subscriptions_page') }}">Subscribe</a>
+            <a href="/subscriptions">Subscribe</a>
           </div>
           <div class="container_footer_bottom_items">
             <a
-              href="{{ url_for('login_page') }}"
+              href="/login"
               class="container_footer_bottom_right_button container_footer_login"
               ><span class="material-symbols-outlined"> login </span>Login</a
             >
             <a
-              href="{{ url_for('signup_page') }}"
+              href="/signup"
               class="container_footer_bottom_right_button container_footer_signin"
               ><span class="material-symbols-outlined"> add_circle </span
               >Signin</a
             >
             <a
-              href="{{ url_for('signout') }}"
+              href="#"
               class="container_footer_bottom_right_button container_footer_profile"
               ><span class="material-symbols-outlined"> account_circle </span
               >Signout</a

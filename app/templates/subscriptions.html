@@ -28,25 +28,25 @@
     <header>
       <div class="container_whole_navbar">
         <div class="container_header_left">
-          <a href="{{ url_for('home_page')}}">
+          <a href="/home">
             <h2 class="header_title">VideotoGIF</h2>
           </a>
         </div>
         <div class="container_header_middle">
           <p class="header_middle_link">
-            <a href="{{ url_for('upload_video_page') }}">Video</a>
+            <a href="/home/upload_video">Video</a>
           </p>
           <p class="header_middle_link">
-            <a href="{{ url_for('youtube_video_page') }}">Youtube</a>
+            <a href="/home/youtube_video">Youtube</a>
           </p>
           <p class="header_middle_link">
-            <a href="{{ url_for('youtube_channel_page') }}">Channel</a>
+            <a href="/home/youtube_channel">Channel</a>
           </p>
           <p class="header_middle_link">
-            <a href="{{ url_for('google_photos_page') }}">Photos</a>
+            <a href="/home/google_photos">Photos</a>
           </p>
           <p class="header_middle_link">
-            <a href="{{ url_for('subscriptions_page') }}">Pricing</a>
+            <a href="/subscriptions">Pricing</a>
           </p>
         </div>
         {% if user and user.name and user.picture %}
@@ -68,10 +68,10 @@
         {% else %}
         <div class="container_header_right">
           <p class="header_right_link">
-            <a href="{{ url_for('login_page') }}">Login</a>
+            <a href="/login">Login</a>
           </p>
           <p class="header_right_link">
-            <a href="{{ url_for('signup_page') }}">Sign Up</a>
+            <a href="/signup">Sign Up</a>
           </p>
         </div>
         {% endif %}
