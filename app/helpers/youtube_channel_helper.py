@@ -68,14 +68,13 @@ async def process_youtube_channel(video_link: str):
         # Generate unique GIF filename
         unique_id = str(uuid.uuid4())
         gif_filename = f"{unique_id}.gif"
-        gif_path = os.path.join(results_dir, gif_filename)
 
         # Convert the video to GIF
         convert_video_to_gif(video_path, gif_path)
 
 
         # Return the URL of the GIF
-        gif_url = f"/static/results/{gif_filename}"
+        gif_url = gif_filename
         return {"status": "success", "gif_url_youtube": gif_url, "message": "Video converted to GIF successfully!"}
     except Exception as e:
         print(f"Error processing video: {e}")
