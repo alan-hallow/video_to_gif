@@ -2,7 +2,7 @@ from fastapi import APIRouter, Form, Request, Response
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from app.database import users_collection  
-from app.helpers.auth_helper import verify_password, create_access_token
+# from app.helpers.auth_helper import verify_password, create_access_token
 import json
 
 templates = Jinja2Templates(directory="app/templates")
