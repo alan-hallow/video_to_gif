@@ -8,20 +8,32 @@ from dotenv import load_dotenv
 from app.database import users_collection  # Assuming you have this setup like in signup
 from fastapi.responses import JSONResponse
 
-# Load environment variables
+# Load environment variables from the .env file
 load_dotenv()
 
 router = APIRouter()
 
-# Set up the Google OAuth 2.0 flow
-google_oauth_flow = Flow.from_client_secrets_file(
-    os.path.join(os.path.dirname(__file__), "../../client_secret.json"),  # Access client_secret.json from the root directory
+# Set up the Google OAuth 2.0 flow using environment variables
+google_oauth_flow = Flow.from_client_config(
+    {
+        "web": {
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+            "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "redirect_uris": [os.getenv("GOOGLE_REDIRECT_URI")],
+            "scopes": [
+                "https://www.googleapis.com/auth/userinfo.profile",
+                "https://www.googleapis.com/auth/userinfo.email",
+                "openid"
+            ]
+        }
+    },
     scopes=[
         "https://www.googleapis.com/auth/userinfo.profile",
         "https://www.googleapis.com/auth/userinfo.email",
         "openid"
-    ],
-    redirect_uri=os.getenv("GOOGLE_REDIRECT_URI")  # Ensure this comes from .env
+    ]
 )
 
 # Explicitly allow HTTP for development (insecure transport)
@@ -86,10 +98,6 @@ async def google_callback(request: Request):
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Google login error: {e}")
-
-
-
-
 
 @router.get('/signout')
 async def signout(request: Request, response: Response):
