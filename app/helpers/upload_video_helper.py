@@ -5,7 +5,6 @@ from fastapi import UploadFile
 from moviepy.editor import VideoFileClip
 import asyncio
 from PIL import Image, ImageDraw, ImageFont, ImageSequence
-from PIL import ImageResampling  # Import Resampling module
 
 # Function to resize video and convert it to GIF using moviepy
 def convert_video_to_gif(video_path: str, gif_path: str):
@@ -187,10 +186,7 @@ def wrap_text(text, font, max_width):
         line = ''
         while words:
             test_line = line + words[0] + ' '
-            # Ensure the width is compared as integers
             text_width = font.getbbox(test_line)[2]
-            if isinstance(text_width, str):
-                text_width = int(text_width)  # Convert to int if necessary
 
             if text_width <= max_width:
                 line = test_line
