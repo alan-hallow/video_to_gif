@@ -1,5 +1,7 @@
 fastapi==0.115.2
 google_auth_oauthlib==1.2.1
+
+jinja2
 motor==3.6.0
 moviepy==1.0.3
 passlib==1.7.4
