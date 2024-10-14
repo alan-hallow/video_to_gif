@@ -5,31 +5,42 @@ from fastapi import UploadFile
 from moviepy.editor import VideoFileClip
 import yt_dlp
 
-def download_video_from_YT_link(url: str, output_path='static/uploads'):
+
+def download_YT_channel_Specific_Number_videos(channel_url: str, output_path='static/uploads', max_videos=2):
     try:
-        # Define options for yt-dlp
+        # Define yt-dlp options
         ydl_opts = {
             'format': 'bestvideo',
             'outtmpl': f'{output_path}/%(title)s.%(ext)s',  # Use video title as file name
+            'max_downloads': max_videos,
         }
 
-        # Download the video and retrieve its info
+        # Download videos from the channel and retrieve information
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            # Extract information and download video
-            info = ydl.extract_info(url, download=True)
-            video_title = info.get('title', None)  # Get the video title
-            video_ext = info.get('ext', None)  # Get the video extension
+            channel_info = ydl.extract_info(channel_url, download=True)  # Extract channel info
+            downloaded_videos = channel_info.get('entries', [])  # Get the list of videos
 
-            if video_title and video_ext:
-                # Construct the full path to the downloaded video file
-                video_filename = f"{video_title}.{video_ext}"
-                return os.path.join(output_path, video_filename)
-            else:
-                raise FileNotFoundError("Video title or extension not found in metadata.")
+            downloaded_paths = []
+            for video in downloaded_videos[:max_videos]:  # Limit to the specified number of videos
+                video_title = video.get('title', None)  # Get the video title
+                video_ext = video.get('ext', None)      # Get the video extension
+
+                if video_title and video_ext:
+                    # Construct the full path to the downloaded video file
+                    video_filename = f"{video_title}.{video_ext}"
+                    downloaded_paths.append(os.path.join(output_path, video_filename))
+                else:
+                    raise FileNotFoundError("Video title or extension not found in metadata.")
+
+        print(f"Download of up to {max_videos} videos completed!")
+        return downloaded_paths  # Return the list of downloaded video paths
 
     except Exception as e:
         print(f"An error occurred while downloading: {e}")
         return None
+    
+
+
 def convert_video_to_gif(video_path: str, gif_path: str):
     try:
         clip = VideoFileClip(video_path)
@@ -38,7 +49,7 @@ def convert_video_to_gif(video_path: str, gif_path: str):
     except Exception as e:
         print(f"An error occurred during GIF conversion: {e}")
 
-async def process_youtube_video(video_link: str):
+async def process_youtube_channel(video_link: str):
     try:
         # Ensure directories exist
         uploads_dir = os.path.abspath("app/static/uploads")
@@ -50,7 +61,7 @@ async def process_youtube_video(video_link: str):
             os.makedirs(results_dir)
 
         # Download the YouTube video
-        video_path = download_video_from_YT_link(video_link, uploads_dir)
+        video_path = download_YT_channel_Specific_Number_videos(video_link, uploads_dir, max_videos=2)
         if not video_path:
             return {"status": "error", "message": "Failed to download video from YouTube."}
 

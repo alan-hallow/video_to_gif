@@ -112,31 +112,36 @@
           <h2 class="left_side_title">Convert Multiple Youtube Video to GIF</h2>
           <div class="container_all_except_title">
             <div class="container_left_right_side">
-              <div
-                id="video-thumbnails"
-                class="container_thumbnail_or_generated_gif"
+              <form
+                action="/input_youtube_channel_link"
+                class="container_thumbnail_or_generated_"
+                method="post"
               >
-                <form action="" class="container_thumbnail_or_generated_gif">
+                <div
+                  id="video-thumbnails"
+                  class="container_thumbnail_or_generated_gif"
+                >
                   <input
                     type="text"
+                    name="channel_link"
                     class="container_thumbnail_or_generated_gif_input"
                     required
                     placeholder="Enter Youtube Channel Link"
                   />
-                </form>
-                <!-- Thumbnails will be added here -->
-              </div>
-              <div class="container_usual_stuff">
-                <p class="container_usual_stuff_p">
-                  Convert all the videos of a Youtube channel into high-quality
-                  GIFs with ease. Simply paste the YouTube Channel link, select
-                  the desired settings, and let our tool generate a custom GIF
-                  for you to share instantly!
-                </p>
-              </div>
-              <button class="container_left_right_side_button">
-                Generate Gif
-              </button>
+                  <!-- Thumbnails will be added here -->
+                </div>
+                <div class="container_usual_stuff">
+                  <p class="container_usual_stuff_p">
+                    Convert all the videos of a Youtube channel into
+                    high-quality GIFs with ease. Simply paste the YouTube
+                    Channel link, select the desired settings, and let our tool
+                    generate a custom GIF for you to share instantly!
+                  </p>
+                </div>
+                <button type="submit" class="container_left_right_side_button">
+                  Generate Gif
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -155,6 +160,7 @@
               min="0"
               required
               max="20"
+              value="2"
               style="
                 height: 50px;
                 width: 90%;

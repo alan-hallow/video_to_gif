@@ -35,11 +35,13 @@ async def upload_video_page(request: Request, gif_location: str = None, video_up
         }
     )
 
+from typing import Optional
+
 @router.post('/video_upload', response_class=HTMLResponse)
 async def handle_video_upload(
     request: Request,
     upload_video: UploadFile = File(...),
-    captions_bool: bool = Form(...),
+    captions_bool: Optional[bool] = Form(True),
     captions: str = Form(None),
     font_size: str = Form(None),
     boldness: str = Form(None),
@@ -47,7 +49,7 @@ async def handle_video_upload(
     font_color_two: str = Form(None),
     outline_color: str = Form(None),
     shadow_color: str = Form(None),
-    shadow_offset: str = Form(None),
+    shadow_offset: Optional[str]= Form(None),
     line_spacing: str = Form(None),
     font: str = Form(None)
 ):
@@ -63,7 +65,7 @@ async def handle_video_upload(
                 font_color_two,
                 outline_color,
                 shadow_color,
-                shadow_offset="4,4",  # Default value
+                shadow_offset="0,0",  # Default value
                 line_spacing=10,       # Default value
                 font="Oswald.ttf"      # Default font
             )

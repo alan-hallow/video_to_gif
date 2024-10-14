@@ -122,7 +122,10 @@ header a {
 
 .container_whole_left_side_inner {
   width: 80vw;
-  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .left_side_title {
@@ -140,6 +143,8 @@ header a {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 30px;
   width: 80vw;
 }
 
@@ -178,6 +183,10 @@ header a {
   font-size: 20px;
   border: none;
   outline: none;
+}
+
+.container_display_generated_gif {
+  height: 30vh;
 }
 
 .container_thumbnail_or_generated_gif_image {

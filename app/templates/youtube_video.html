@@ -99,25 +99,6 @@
                     required
                     placeholder="Enter Youtube Video Link"
                   />
-                  {% if gif_url_youtube %}
-                  <div
-                    class="container_display_generated_gif"
-                    style="margin-top: 20px"
-                  >
-                    <img
-                      src="{{ gif_url_youtube }}"
-                      alt="Upload video to create gif"
-                      style="
-                        width: 640px;
-                        height: 400px;
-                        border-radius: 20px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                      "
-                    />
-                  </div>
-                  {% endif %}
 
                   <!-- Thumbnails will be added here -->
                 </div>
@@ -134,6 +115,33 @@
                 </button>
               </form>
             </div>
+            {% if gif_url_youtube %}
+            <div
+              class="container_display_generated_gif"
+              style="
+                margin-top: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 100px 30px;
+                border-radius: 30px;
+                border: 2px solid #414141;
+                background-color: #bec1d2;
+              "
+            >
+              <img
+                src="{{ gif_url_youtube }}"
+                alt="Upload video to create gif"
+                style="
+                  width: 640px;
+                  border-radius: 20px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              />
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ body {
 }
 
 header a {
-  color: white;
+  color: #414141;
   text-decoration: none;
 }
 
@@ -130,7 +130,7 @@ body {
   padding: 0;
   margin: 0;
 }
-
+/* 
 .container_whole_navbar {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -191,11 +191,11 @@ header a {
 .header_right_link {
   padding: 0;
   margin: 0;
-}
+} */
 
 .container_login_credentials_complete button {
   height: 60px;
-  width: 560px;
+  width: 460px;
   border-radius: 10px;
   border: 2px solid #414141;
   outline: none;
@@ -205,4 +205,16 @@ header a {
   font-size: 20px;
   padding: 10px 30px;
   transition: 0.2s;
+}
+
+.container_whole_login_page_except_title {
+  height: 100%;
+  width: max-content;
+  background-color: #bec1d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 20px;
 }

@@ -190,7 +190,7 @@
                     <div class="container_for_generated_gif_options" id="container_for_generated_gif_options" 
                     style="display: none;">
 
-                      <button class="container_option container_option_download" onclick="download_generated_gif_whole_page()">
+                      <button class="container_option container_option_download" onclick="download_generated_gif()">
 
                         <span class="material-symbols-outlined">download</span>
                         <p>Download GIF</p>
@@ -325,9 +325,9 @@
                 class="control_panel_seekbar"
                 type="range"
                 name="boldness"
-                min="1"
+                min="0"
                 max="10"
-                value="4"
+                value="1"
               />
             </div>
             
@@ -393,7 +393,7 @@
                 min="0"
                 max="10"
                 name="shadow_offset"
-                value="4"
+                value="0,0"
               />
             </div>
 
@@ -449,7 +449,7 @@
         </div>
       </form>
     </div>
-    <div class="container_whole_blurred_background_for_options" id="container_whole_blurred_background_for_options">
+    <!-- <div class="container_whole_blurred_background_for_options" id="container_whole_blurred_background_for_options">
       <button class="container_whole_blurred_background_for_options_close" onclick="close_whole_container_for_options()"><span class="material-symbols-outlined">
         close
         </span></button>
@@ -517,7 +517,7 @@
         <button onclick="share_generated_gif()">Share GIF</button>
       </div>
 
-    </div>
+    </div> -->
   </body>
 
 
@@ -716,41 +716,37 @@ document.getElementById('submitButton').addEventListener('click', function() {
         const imageUrl = document.querySelector('img[src*="{{ gif_location }}"]').src;
         const downloadLink = document.createElement('a');
         downloadLink.href = imageUrl;
-        downloadLink.download = 'downloaded-gif.gif';
+        downloadLink.download = '{{ gif_location }}';
         downloadLink.click();
     }
 
     // code for downloading gif ends here
 
     function upload_generated_gif_giffy(){
-      let whole_page_container = document.getElementById('container_whole_blurred_background_for_options');
-      let displayStyle = window.getComputedStyle(whole_page_container).display;
+    const imageUrl = document.querySelector('img[src*="{{ gif_location }}"]').src;
+    const downloadLink = document.createElement('a');
+    downloadLink.href = imageUrl;
+    downloadLink.download = '{{ gif_location }}';
+    downloadLink.click();
 
-      // Check if the container is hidden
-      if (displayStyle === 'none'){
-          whole_page_container.style.display = 'flex'; // Show blurred background
-          document.getElementById('container_upload_gif_giphy_whole').style.display = 'flex'; // Show download options
-          // Ensure other containers are hidden
-          document.getElementById('container_download_gif_whole').style.display = 'none';
-          document.getElementById('container_upload_gif_tenor_whole').style.display = 'none';
-      }
+    // Redirect users to tenor.com after a short delay to allow the download to start
+    setTimeout(() => {
+        window.location.href = 'https://giphy.com';
+    }, 1000); // Adjust the delay as necessary
     }
+  function upload_generated_gif_tenor() {
+    const imageUrl = document.querySelector('img[src*="{{ gif_location }}"]').src;
+    const downloadLink = document.createElement('a');
+    downloadLink.href = imageUrl;
+    downloadLink.download = '{{ gif_location }}';
+    downloadLink.click();
 
+    // Redirect users to tenor.com after a short delay to allow the download to start
+    setTimeout(() => {
+        window.location.href = 'https://tenor.com';
+    }, 1000); // Adjust the delay as necessary
+  }
 
-    function upload_generated_gif_tenor(){
-      let whole_page_container = document.getElementById('container_whole_blurred_background_for_options');
-      let displayStyle = window.getComputedStyle(whole_page_container).display;
-
-      // Check if the container is hidden
-      if (displayStyle === 'none'){
-          whole_page_container.style.display = 'flex'; // Show blurred background
-          document.getElementById('container_upload_gif_giphy_whole').style.display = 'none'; // Show download options
-          // Ensure other containers are hidden
-          document.getElementById('container_download_gif_whole').style.display = 'none';
-          document.getElementById('container_upload_gif_tenor_whole').style.display = 'flex';
-      }
-
-    }
 
 
     function share_generated_gif(){

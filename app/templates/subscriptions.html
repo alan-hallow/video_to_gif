@@ -25,42 +25,6 @@
     <!-- header font -->
   </head>
   <body>
-    <!-- <header>
-      <div
-        class="navbar_full"
-        style="
-          height: 50px;
-          overflow: hidden;
-          background-color: #0d1321;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          font-family: 'Poppins', sans-serif;
-          font-weight: 400;
-          position: fixed;
-          padding: 0 100px;
-          width: calc(100vw - 200px);
-          font-style: normal;
-          z-index: 1000;
-        "
-      >
-        <h2 style="padding: 0; margin: 0">VideotoGIF</h2>
-        <div
-          class="navbar_right_side"
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-          "
-        >
-          <p><a href="{{ url_for('subscriptions_page') }}">Subscriptions</a></p>
-          <p><a href="{{ url_for('signup_page') }}">Signup</a></p>
-          <p><a href="{{ url_for('login_page') }}">Login</a></p>
-        </div>
-      </div>
-    </header> -->
-
     <header>
       <div class="container_whole_navbar">
         <div class="container_header_left">
@@ -124,7 +88,7 @@
         padding-top: 100px;
       "
     >
-      <h1 style="color: white; font-size: 50px">Subscriptions</h1>
+      <h1 style="color: #414141; font-size: 50px">Subscriptions</h1>
       <div
         class="container_whole_cards_subscriptions"
         style="
@@ -239,10 +203,18 @@
   </body>
   <style>
     body {
-      background-color: gray;
-
-      background-image: linear-gradient(to top right, #463657, #4e3f5a);
-      color: white;
+      background: linear-gradient(
+          217deg,
+          rgba(226, 189, 189, 0.8),
+          rgba(209, 132, 132, 0) 70.71%
+        ),
+        linear-gradient(
+          127deg,
+          rgba(187, 214, 187, 0.8),
+          rgb(0 255 0 / 0%) 70.71%
+        ),
+        linear-gradient(336deg, #dadbdc, rgb(0 0 255 / 0%) 70.71%);
+      color: #414141;
       padding: 0;
       margin: 0;
     }
@@ -251,7 +223,7 @@
       width: 300px;
       border-radius: 40px;
       flex-direction: column;
-      background-color: #2b2d42;
+      background-color: #bec1d2;
       display: flex;
       align-items: start;
       justify-content: center;
@@ -274,7 +246,7 @@
     }
 
     a {
-      color: white;
+      color: #414141;
       text-decoration: none;
       cursor: pointer;
     }
@@ -291,9 +263,8 @@
       grid-template-rows: 1fr;
       grid-column-gap: 0px;
       grid-row-gap: 0px;
-      background-color: #13072290;
-      backdrop-filter: blur(100px);
-      height: 50px;
+      background-color: #ccceda;
+      height: 3vw;
       width: 100vw;
       position: fixed;
       top: 0;
@@ -302,7 +273,7 @@
     }
 
     header a {
-      color: white;
+      color: #414141;
       text-decoration: none;
     }
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
-from app.helpers.youtube_channel_helper import process_youtube_video
+from app.helpers.youtube_channel_helper import process_youtube_channel
 from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="app/templates")
@@ -32,9 +32,9 @@ async def youtube_channel_page(request: Request, gif_url_youtube: str = None, vi
     )
 
 @router.post('/input_youtube_channel_link', response_class=HTMLResponse)
-async def handle_youtube_video_upload(request: Request, video_link: str = Form(...)):
+async def handle_youtube_video_upload(request: Request, channel_link: str = Form(...)):
     try:
-        result = await process_youtube_video(video_link)
+        result = await process_youtube_channel(channel_link)
         if result["status"] == "success":
             gif_url_youtube = result["gif_url_youtube"]
             message = result["message"]

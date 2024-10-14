@@ -134,112 +134,114 @@
           VideotoGIF
         </h1>
       </div>
-      <form action="googleauth">
-        <div class="container_google_login_design" style="margin: 10px">
-          <button
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: start;
-              gap: 10px;
-              width: 560px;
-              height: 60px;
-              border-radius: 10px;
-              background-color: #bec1d2;
-              outline: 2px solid #2b2d42;
-              color: #414141;
-              border: none;
-            "
-          >
-            <img
-              src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-              alt="Google logo"
-              style="height: 50px; aspect-ratio: 1"
-            />
-            <p style="font-size: 20px">Login with Google</p>
-          </button>
-        </div>
-      </form>
-      <h3
-        style="
-          padding: 0;
-          margin: 0;
-          font-family: 'Merriweather', serif;
-          font-weight: 900;
-          font-style: normal;
-        "
-      >
-        OR
-      </h3>
-      <form action="/login" method="post">
-        <div
-          class="container_login_credentials_complete"
+      <div class="container_whole_login_page_except_title">
+        <form action="googleauth">
+          <div class="container_google_login_design" style="margin: 10px">
+            <button
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                gap: 10px;
+                width: 460px;
+                height: 60px;
+                border-radius: 10px;
+                background-color: #dadbdc;
+                outline: 2px solid #2b2d42;
+                color: #414141;
+                border: none;
+              "
+            >
+              <img
+                src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                alt="Google logo"
+                style="height: 50px; aspect-ratio: 1"
+              />
+              <p style="font-size: 20px">Login with Google</p>
+            </button>
+          </div>
+        </form>
+        <h3
           style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+            padding: 0;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+            font-weight: 900;
+            font-style: normal;
           "
         >
-          {% if error %}
-          <span
+          OR
+        </h3>
+        <form action="/login" method="post">
+          <div
+            class="container_login_credentials_complete"
             style="
-              height: 40px;
-              width: 500px;
-              padding: 10px 30px;
-              border-radius: 10px;
-              margin-bottom: 10px;
               display: flex;
               align-items: center;
               justify-content: center;
-              background-color: #d62828;
-              border: 2px solid #161616;
-              color: #fdf0d5;
-              font-size: 20px;
+              flex-direction: column;
             "
-            >{{ error}}</span
           >
-          {% endif %}
+            {% if error %}
+            <span
+              style="
+                height: 40px;
+                width: 400px;
+                padding: 10px 30px;
+                border-radius: 10px;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #d62828;
+                border: 2px solid #161616;
+                color: #fdf0d5;
+                font-size: 20px;
+              "
+              >{{ error}}</span
+            >
+            {% endif %}
 
-          <input
-            type="email"
-            name="email"
-            value="{{ email }}"
-            required
-            placeholder="Email"
-            style="
-              height: 40px;
-              width: 500px;
-              border-radius: 10px;
-              outline: none;
-              background-color: #bec1d2;
-              border: 2px solid #161616;
-              color: #414141;
-              font-size: 20px;
-              padding: 10px 30px;
-            "
-          />
-          <input
-            type="password"
-            name="password"
-            required
-            value="{{ password }}"
-            placeholder="Password"
-            style="
-              height: 40px;
-              width: 500px;
-              border-radius: 10px;
-              outline: none;
-              background-color: #bec1d2;
-              border: 2px solid #161616;
-              color: #414141;
-              font-size: 20px;
-              padding: 10px 30px;
-            "
-          />
-          <button type="submit">Login</button>
-        </div>
-      </form>
+            <input
+              type="email"
+              name="email"
+              value="{{ email }}"
+              required
+              placeholder="Email"
+              style="
+                height: 40px;
+                width: 400px;
+                border-radius: 10px;
+                outline: none;
+                background-color: #dadbdc;
+                border: 2px solid #161616;
+                color: #414141;
+                font-size: 20px;
+                padding: 10px 30px;
+              "
+            />
+            <input
+              type="password"
+              name="password"
+              required
+              value="{{ password }}"
+              placeholder="Password"
+              style="
+                height: 40px;
+                width: 400px;
+                border-radius: 10px;
+                outline: none;
+                background-color: #dadbdc;
+                border: 2px solid #161616;
+                color: #414141;
+                font-size: 20px;
+                padding: 10px 30px;
+              "
+            />
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
 
       <p>
         Don't have an account?
