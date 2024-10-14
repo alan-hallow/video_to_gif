@@ -4,7 +4,8 @@ import uuid
 from fastapi import UploadFile
 from moviepy.editor import VideoFileClip
 import asyncio
-from PIL import ImageDraw, ImageFont, ImageSequence, Image
+from PIL import Image, ImageDraw, ImageFont, ImageSequence
+from PIL import ImageResampling  # Import Resampling module
 
 # Function to resize video and convert it to GIF using moviepy
 def convert_video_to_gif(video_path: str, gif_path: str):
@@ -37,9 +38,6 @@ async def process_video_upload_with_caption(upload_video: UploadFile, captions, 
         if len(shadow_offset_values) != 2:
             raise ValueError("shadow_offset must contain exactly two values.")
             
-        shadow_offset = tuple(map(int, shadow_offset_values))  # Convert to a tuple of integers
-
-                
         shadow_offset = tuple(map(int, shadow_offset_values))  # Convert to a tuple of integers
         line_spacing = int(line_spacing)
 
@@ -90,12 +88,6 @@ async def process_video_upload_with_caption(upload_video: UploadFile, captions, 
     except Exception as e:
         print(f"Error processing video with caption: {e}")
         return {"status": "error", "message": f"An error occurred: {str(e)}"}
-
-
-
-
-
-
 
 # Async function to process video upload without caption
 async def process_video_upload(upload_video: UploadFile):
@@ -208,8 +200,3 @@ def wrap_text(text, font, max_width):
         lines.append(line.strip())
 
     return lines
-
-
-
-
-

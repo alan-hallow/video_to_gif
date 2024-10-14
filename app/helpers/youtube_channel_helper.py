@@ -68,6 +68,7 @@ async def process_youtube_channel(video_link: str):
         # Generate unique GIF filename
         unique_id = str(uuid.uuid4())
         gif_filename = f"{unique_id}.gif"
+        gif_path = os.path.join(results_dir, gif_filename)
 
         # Convert the video to GIF
         convert_video_to_gif(video_path, gif_path)

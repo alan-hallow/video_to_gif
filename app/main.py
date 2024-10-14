@@ -10,7 +10,7 @@ from fastapi.templating import Jinja2Templates
 from app.routes import login  
 from app.routes import signup
 from app.routes import home_page
-# from app.routes import google_auth
+from app.routes import google_auth
 from app.routes import video_upload
 from app.routes import google_photos
 from app.routes import subscriptions
@@ -40,7 +40,7 @@ users_collection = db["users"]  # Asynchronous MongoDB access
 app.include_router(login.router)
 app.include_router(signup.router)
 app.include_router(home_page.router)
-# app.include_router(google_auth.router)
+app.include_router(google_auth.router)
 app.include_router(video_upload.router)
 app.include_router(youtube_video.router)
 app.include_router(google_photos.router)
