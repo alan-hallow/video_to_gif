@@ -8,4 +8,5 @@ protobuf==5.28.2
 python-dotenv==1.0.1
 python_jose==3.3.0
 Requests==2.32.3
+uvicorn==0.30.6
 yt_dlp==2024.10.7
