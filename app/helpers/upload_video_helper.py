@@ -4,7 +4,8 @@ import uuid
 from fastapi import UploadFile
 from moviepy.editor import VideoFileClip
 import asyncio
-from PIL import Image, ImageDraw, ImageFont, ImageSequence
+from PIL import ImageDraw, ImageFont, ImageSequence
+import PIL.Image
 
 # Function to resize video and convert it to GIF using moviepy
 def convert_video_to_gif(video_path: str, gif_path: str):
@@ -125,7 +126,7 @@ def save_upload_video(upload_video: UploadFile, video_location: str):
 # Function to add text to GIF frames
 def add_text_to_gif(input_gif_path, output_gif_path, text, font_path, font_size=50, shadow_offset=(4, 4), shadow_color=(0, 0, 0, 128), outline_color=(0, 0, 0, 128), font_color1=(255, 255, 255, 255), font_color2=(204, 204, 255, 255), line_spacing=10, boldness=2):
     font = ImageFont.truetype(font_path, font_size)
-    original_gif = Image.open(input_gif_path)
+    original_gif = PIL.Image.open(input_gif_path)
     frames = []
 
     max_width = original_gif.size[0] - 20
