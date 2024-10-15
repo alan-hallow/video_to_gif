@@ -41,11 +41,11 @@ def convert_video_to_gif(video_path: str, gif_path: str):
 async def process_youtube_video(video_link: str):
     try:
         # Ensure directories exist
-        uploads_dir = os.path.abspath("../video_to_gif/app/static/uploads")
+        uploads_dir = os.path.abspath("app/static/uploads")
         if not os.path.exists(uploads_dir):
             os.makedirs(uploads_dir)
         
-        results_dir = os.path.abspath("../video_to_gif/app/static/results")
+        results_dir = os.path.abspath("app/static/results")
         if not os.path.exists(results_dir):
             os.makedirs(results_dir)
 
