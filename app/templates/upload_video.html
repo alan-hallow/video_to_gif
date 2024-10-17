@@ -125,7 +125,9 @@
                         Selected File Name
                       </p>
 
-                      <button class="container_selected_file_button">
+                      <button class="container_selected_file_button" 
+                      onclick="triggerFileInput()"
+                      id="upload_button">
                         <span class="material-symbols-outlined"> upload </span>
                         Upload
                       </button>
@@ -535,77 +537,82 @@
       fileInput.click();
     });
 
-    // Handle drag-over event
-    uploadContainer.addEventListener("dragover", (e) => {
-      e.preventDefault(); // Prevent default behavior (to allow drop)
-      uploadContainer.classList.add("dragging"); // Add class when dragging
-    });
+   // Handle drag-over event
+uploadContainer.addEventListener("dragover", (e) => {
+  e.preventDefault(); // Prevent default behavior (to allow drop)
+  uploadContainer.classList.add("dragging"); // Add class when dragging
+});
 
-    // Handle drag leave event
-    uploadContainer.addEventListener("dragleave", () => {
-      uploadContainer.classList.remove("dragging");
-    });
+// Handle drag leave event
+uploadContainer.addEventListener("dragleave", () => {
+  uploadContainer.classList.remove("dragging");
+});
 
-    // Handle drop event
-    uploadContainer.addEventListener("drop", (e) => {
-      e.preventDefault();
-      uploadContainer.classList.remove("dragging");
+// Handle drop event
+uploadContainer.addEventListener("drop", (e) => {
+  e.preventDefault();
+  uploadContainer.classList.remove("dragging");
 
-      const files = e.dataTransfer.files;
-      handleFiles(files); // Handle the dropped files
-    });
+  const files = e.dataTransfer.files;
+  handleFiles(files); // Handle the dropped files
+  
+  // Manually assign the dropped files to the file input element
+  fileInput.files = e.dataTransfer.files; // Important: Assign the dropped files to the input element
+});
 
-    // Handle file selection from input
-    fileInput.addEventListener("change", (e) => {
-      const files = e.target.files;
-      handleFiles(files); // Handle files selected from input
-    });
+// Handle file selection from input
+fileInput.addEventListener("change", (e) => {
+  const files = e.target.files;
+  handleFiles(files); // Handle files selected from input
+});
 
-    // Function to process files
-    function handleFiles(files) {
-      thumbnailsContainer.innerHTML = ""; // Clear previous thumbnails
+// Function to process files
+function handleFiles(files) {
+  thumbnailsContainer.innerHTML = ""; // Clear previous thumbnails
 
-      for (const file of files) {
-        if (!file.type.startsWith("video/")) {
-          alert("Only video files are allowed!");
-          continue;
-        }
-
-        selectedFileName.textContent = file.name; // Display file name
-
-        const video = document.createElement("video");
-        video.src = URL.createObjectURL(file);
-        video.width = 450; // Set the width for the thumbnail
-        video.controls = false; // Disable controls for the thumbnail
-
-        video.addEventListener("loadeddata", () => {
-          // Once the video is loaded, capture a frame as the thumbnail
-          const canvas = document.createElement("canvas");
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-          const img = document.createElement("img");
-          img.src = canvas.toDataURL("image/png");
-          img.width = 450; // Set the width of the thumbnail
-          img.style.overflow = "none";
-          img.height = 300;
-          img.style.borderRadius = "15px";
-
-          // Append thumbnail to the thumbnails container
-          thumbnailsContainer.appendChild(img);
-        });
-      }
+  for (const file of files) {
+    if (!file.type.startsWith("video/")) {
+      alert("Only video files are allowed!");
+      continue;
     }
-    function removeFileOnClick() {
-      // Clear the thumbnails container
-      thumbnailsContainer.innerHTML = "Upload video to create gif";
 
-      // Reset the selected file name
-      selectedFileName.textContent = "Selected File Name";
-    }
+    selectedFileName.textContent = file.name; // Display file name
+
+    const video = document.createElement("video");
+    video.src = URL.createObjectURL(file);
+    video.width = 450; // Set the width for the thumbnail
+    video.controls = false; // Disable controls for the thumbnail
+
+    video.addEventListener("loadeddata", () => {
+      // Once the video is loaded, capture a frame as the thumbnail
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const img = document.createElement("img");
+      img.src = canvas.toDataURL("image/png");
+      img.width = 450; // Set the width of the thumbnail
+      img.style.overflow = "none";
+      img.height = 300;
+      img.style.borderRadius = "15px";
+
+      // Append thumbnail to the thumbnails container
+      thumbnailsContainer.appendChild(img);
+    });
+  }
+}
+
+function removeFileOnClick() {
+  // Clear the thumbnails container
+  thumbnailsContainer.innerHTML = "Upload video to create gif";
+
+  // Reset the selected file name
+  selectedFileName.textContent = "Selected File Name";
+}
+
     // Function to check the checkbox status and update the opacity for all elements with class 'be_hidden'
     function checkCaptionsStatus() {
       let captions_bool = document.getElementById('captions_bool');
@@ -763,5 +770,27 @@ document.getElementById('submitButton').addEventListener('click', function() {
           document.getElementById('container_share_gif_whole').style.display = 'flex';
       }
     }
+
+
+
+
+
+      // Trigger the file input when "Upload" button is clicked
+  function triggerFileInput() {
+    document.getElementById('upload_video').click();
+  }
+
+  // Remove selected file
+  function removeFileOnClick() {
+    document.getElementById('upload_video').value = '';
+    document.getElementById('selected_file_name').textContent = 'Selected File Name';
+  }
+
+  // Display selected file name
+  document.getElementById('upload_video').addEventListener('change', function () {
+    const fileInput = document.getElementById('upload_video');
+    const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'Selected File Name';
+    document.getElementById('selected_file_name').textContent = fileName;
+  });
   </script>
 </html>
