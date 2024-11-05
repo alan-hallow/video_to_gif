@@ -55,18 +55,18 @@
             <a href="/subscriptions">Pricing</a>
           </p>
         </div>
-        {% if user and user.name and user.picture %}
+        {% if username %}
         <div class="container_header_right">
-          <p>{{ user.name }}</p>
+          <p style="padding: 0; margin: 0; font-size: 18px">{{ username }}</p>
           <div class="container_profile_image">
             <img
-              src="{{ user.picture }}"
-              alt="Profile Image"
+              src="{{ userpicture }}"
+              alt=""
               style="
                 height: 35px;
                 width: 35px;
                 border-radius: 100px;
-                background-color: red;
+                background-color: gray;
               "
             />
           </div>
@@ -138,6 +138,7 @@
         <form action="/googleauth">
           <div class="container_google_login_design" style="margin: 10px">
             <button
+              type="submit"
               style="
                 display: flex;
                 align-items: center;

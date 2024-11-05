@@ -2,6 +2,7 @@ from fastapi import APIRouter, Request, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
 from app.helpers.youtube_video_helper import process_youtube_video
 from fastapi.templating import Jinja2Templates
+import json
 
 templates = Jinja2Templates(directory="app/templates")
 
@@ -9,10 +10,18 @@ router = APIRouter()
 
 @router.get("/home/youtube_video", response_class=HTMLResponse)
 async def youtube_video_page(request: Request, gif_url_youtube: str = None, video_upload_message: str = None, error: str = None):
-    # Retrieve cookies from the request
-    user_email = request.cookies.get('email')
-    user_name = request.cookies.get('name')
-    picture = request.cookies.get('picture')
+   # Retrieve the 'user_info' cookie
+    user_info = request.cookies.get("user_info")
+    
+    if user_info:
+        # Parse the JSON data from the cookie
+        user_data = json.loads(user_info)
+        user_email = user_data.get("email")
+        user_name = user_data.get("name")
+        picture = user_data.get("picture")
+    else:
+        user_email, user_name, picture = None, None, None
+
     return templates.TemplateResponse(
         "youtube_video.html", 
         {
@@ -23,11 +32,9 @@ async def youtube_video_page(request: Request, gif_url_youtube: str = None, vide
             "gif_url_youtube": gif_url_youtube,
             "video_upload_message": video_upload_message,
             "error": error,
-            "user": {
-                "email": user_email,
-                "name": user_name,
-                'picture': picture
-            }
+            'username':user_name,
+            'useremail':user_email,
+            'userpicture': picture
         }
     )
 

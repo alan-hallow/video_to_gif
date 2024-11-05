@@ -57,18 +57,18 @@
             <a href="/subscriptions">Pricing</a>
           </p>
         </div>
-        {% if user and user.name and user.picture %}
+        {% if username %}
         <div class="container_header_right">
-          <p>{{ user.name }}</p>
+          <p style="padding: 0; margin: 0; font-size: 18px">{{ username }}</p>
           <div class="container_profile_image">
             <img
-              src="{{ user.picture }}"
-              alt="Profile Image"
+              src="{{ userpicture }}"
+              alt=""
               style="
                 height: 35px;
                 width: 35px;
                 border-radius: 100px;
-                background-color: red;
+                background-color: gray;
               "
             />
           </div>
@@ -92,7 +92,10 @@
           <h1 class="youtube_video_main_title_h2">
             Convert Youtube Videos to Gifs
           </h1>
-          <img src="" alt="" id="thumbnail"/>
+          <p style="padding: 0; margin: 10px 0 30px 0; opacity: 0.7">
+            Paste youtube video link to convert to gifs
+          </p>
+          <img src="" alt="" id="thumbnail" />
           <div class="container_for_input_of_youtube_video">
             <form
               action="/input_youtube_video_link"
@@ -157,6 +160,22 @@
               class="container_generated_gif_display_image"
             />
           </div>
+        </div>
+        <div class="container_for_yotube_video_paragraph">
+          <p>
+            YouTube is the biggest YouTube video sharing platform in the world,
+            and provide an excellent experience for user to upload, view, and
+            share videos. What it can’t provide is a YouTube video to gif
+            converter. That is why video to gif is here to help you out!
+          </p>
+          <p>
+            With our YouTube-to-GIF converter, you can quickly search for your
+            favorite YouTube videos and effortlessly convert them to GIFs for
+            free! Create high-quality GIFs from YouTube videos in various
+            resolutions, including HD and 4K, to perfectly capture any moment.
+            Our converter is compatible with Mac, Android, and Windows, letting
+            you make GIFs wherever you are!
+          </p>
         </div>
       </div>
 

@@ -11,8 +11,10 @@ body {
   width: 80vw;
   padding: 100px 0;
   display: flex;
-  align-items: start;
-  justify-content: center;
+  align-items: center;
+  justify-content: start;
+  gap: 50px;
+  flex-direction: column;
 }
 
 .youtube_video_whole {
@@ -38,10 +40,11 @@ body {
 }
 
 .youtube_video_main_title_h2 {
-  padding: 0 0 20px 0;
+  padding: 0 0 0 0;
   margin: 0;
   text-align: center;
   z-index: 2;
+  color: var(--font-color-main);
 }
 .container_for_input_of_youtube_video {
   width: 100%;
@@ -83,6 +86,7 @@ body {
   background-image: linear-gradient(217deg, #ae185e, #d1848400 70.71%),
     linear-gradient(127deg, #3846b1, #00ff0000 70.71%),
     linear-gradient(336deg, #4cd964, #0000ff00 70.71%);
+  /* background-image: linear-gradient(to right, #3846b1, #4cd964); */
   background-size: 2000%;
 
   transition: 0.3s ease-out;
@@ -114,4 +118,12 @@ body {
   width: 100%;
   border-radius: 10px;
   margin-top: 50px;
+}
+
+.container_for_yotube_video_paragraph {
+  width: 80%;
+}
+
+.container_for_yotube_video_paragraph p {
+  opacity: 0.7;
 }

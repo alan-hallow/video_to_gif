@@ -6,6 +6,7 @@
     <title>{{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}" />
+    <link rel="stylesheet" href="../static/styles/specific/colors.css" />
 
     <!-- google icons -->
     <link
@@ -49,18 +50,18 @@
             <a href="/subscriptions">Pricing</a>
           </p>
         </div>
-        {% if user and user.name and user.picture %}
+        {% if username %}
         <div class="container_header_right">
-          <p>{{ user.name }}</p>
+          <p style="padding: 0; margin: 0; font-size: 18px;">{{ username }}</p>
           <div class="container_profile_image">
             <img
-              src="{{ user.picture }}"
-              alt="Profile Image"
+              src="{{ userpicture }}"
+              alt=""
               style="
                 height: 35px;
                 width: 35px;
                 border-radius: 100px;
-                background-color: red;
+                background-color: gray;
               "
             />
           </div>
@@ -101,18 +102,10 @@
         <div class="container_cards_options">
           <h2>Free</h2>
           <p>Free plan offers 1 user, 1 project, and 1 month of free trial</p>
-          <button
-            style="
-              height: 50px;
-              width: 300px;
-              background-color: transparent;
-              border: 2px solid #618768;
-              border-radius: 50px;
-              font-size: 18px;
-            "
-          >
+
+          <a href="/home" class="container_card_first_link">
             Choose Free Plan
-          </button>
+          </a>
 
           <p class="subscription_items_free">
             <span class="material-symbols-outlined"> check_circle </span>Convert
@@ -134,19 +127,9 @@
         <div class="container_cards_options" style="background-color: #a7c957">
           <h2>$6.49/month</h2>
           <p>Free plan offers 1 user, 1 project, and 1 month of free trial</p>
-          <button
-            style="
-              height: 50px;
-              width: 300px;
-              background-color: #f2e8cf;
-              color: black;
-              border: none;
-              border-radius: 50px;
-              font-size: 18px;
-            "
-          >
+          <a href="/payments?yearly_purchase" class="container_card_second_link">
             Choose Plan for 1 Month
-          </button>
+          </a>
 
           <p class="subscription_items_free">
             <span class="material-symbols-outlined"> check_circle </span>Convert
@@ -168,18 +151,9 @@
         <div class="container_cards_options">
           <h2>$5.99/month</h2>
           <p>Free plan offers 1 user, 1 project, and 1 month of free trial</p>
-          <button
-            style="
-              height: 50px;
-              width: 300px;
-              background-color: #007aff;
-              border: none;
-              border-radius: 50px;
-              font-size: 18px;
-            "
-          >
+          <a href="/payments?monthly_purchase" class="container_card_third_link">
             Choose Plan for 1 Year
-          </button>
+          </a>
 
           <p class="subscription_items_free">
             <span class="material-symbols-outlined"> check_circle </span>Convert
@@ -200,23 +174,67 @@
         </div>
       </div>
     </div>
+    <div style="display: flex; align-items: center; justify-content: center">
+      <div class="why-choose-us" style="margin-bottom: 100px; width: 80vw">
+        <h2>Why Choose Us?</h2>
+
+        <div class="benefit">
+          <h3>Seamless Conversion Experience</h3>
+          <p>
+            We’re dedicated to providing a simple and efficient video-to-GIF
+            conversion process. Our platform is designed to be user-friendly,
+            helping you get the perfect GIFs in just a few clicks.
+          </p>
+        </div>
+
+        <div class="benefit">
+          <h3>High-Quality GIFs in Seconds</h3>
+          <p>
+            We understand that quality matters. Our conversion tool ensures your
+            GIFs are sharp and smooth, capturing every detail and making each
+            moment memorable.
+          </p>
+        </div>
+
+        <div class="benefit">
+          <h3>Cross-Platform Compatibility</h3>
+          <p>
+            Use our converter on any device! Whether you’re on a Mac, Android,
+            or Windows, enjoy the flexibility to create GIFs from your favorite
+            videos wherever you are.
+          </p>
+        </div>
+
+        <div class="contact">
+          <h3>Have Questions?</h3>
+          <p>
+            Still not sure which plan is right for you?
+            <a href="/contact">Contact us</a>! Our support team is ready to help
+            you get the most out of our service.
+          </p>
+        </div>
+
+        <div class="newsletter">
+          <h3>Stay Updated</h3>
+          <p>
+            Sign up for our newsletter to receive the latest updates, tips, and
+            special offers for our video-to-GIF services.
+          </p>
+        </div>
+      </div>
+    </div>
   </body>
   <style>
     body {
-      background: linear-gradient(
-          217deg,
-          rgba(226, 189, 189, 0.8),
-          rgba(209, 132, 132, 0) 70.71%
-        ),
-        linear-gradient(
-          127deg,
-          rgba(187, 214, 187, 0.8),
-          rgb(0 255 0 / 0%) 70.71%
-        ),
-        linear-gradient(336deg, #dadbdc, rgb(0 0 255 / 0%) 70.71%);
+      background-color: var(--background-main);
       color: #414141;
       padding: 0;
       margin: 0;
+
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
     }
     .container_cards_options {
       height: 500px;
@@ -321,5 +339,58 @@
     }
 
     /* header */
+
+    .container_card_first_link {
+      height: 50px;
+      width: 300px;
+      border: 2px solid #3f3f3f;
+      border-radius: 50px;
+      color: #fff;
+      background-color: #3f3f3f;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.1s;
+    }
+    .container_card_first_link:hover {
+      border: 2px solid #0a0a0a;
+      background-color: #0a0a0a;
+      font-size: 19px;
+    }
+    .container_card_second_link {
+      height: 50px;
+      width: 300px;
+      background-color: #f2e8cf;
+      color: black;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.1s;
+    }
+    .container_card_second_link:hover {
+      background-color: #f0f0f0;
+      font-size: 19px;
+    }
+    .container_card_third_link {
+      height: 50px;
+      width: 300px;
+      background-color: #007aff;
+      border: none;
+      color: #fff;
+      border-radius: 50px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.1s;
+    }
+    .container_card_third_link:hover {
+      background-color: #2488f3;
+      font-size: 19px;
+    }
   </style>
 </html>

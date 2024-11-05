@@ -6,6 +6,7 @@ from app.helpers.upload_tenor_helper import register_event_one, register_event_t
 from app.helpers.upload_giphy_helper import upload_gif_to_giphy
 from fastapi.templating import Jinja2Templates
 import os
+import json
 
 templates = Jinja2Templates(directory="app/templates")
 
@@ -13,10 +14,19 @@ router = APIRouter()
 
 @router.get("/home/upload_video", response_class=HTMLResponse)
 async def upload_video_page(request: Request, gif_location: str = None, video_upload_message: str = None, error: str = None):
-    # Retrieve cookies from the request
-    user_email = request.cookies.get('email')
-    user_name = request.cookies.get('name')
-    picture = request.cookies.get('picture')
+   # Retrieve the 'user_info' cookie
+    user_info = request.cookies.get("user_info")
+    
+    if user_info:
+        # Parse the JSON data from the cookie
+        user_data = json.loads(user_info)
+        user_email = user_data.get("email")
+        user_name = user_data.get("name")
+        picture = user_data.get("picture")
+    else:
+        user_email, user_name, picture = None, None, None
+
+    print(user_email, user_name, picture)
 
     return templates.TemplateResponse(
         "upload_video.html", 
@@ -27,11 +37,9 @@ async def upload_video_page(request: Request, gif_location: str = None, video_up
             "gif_location": gif_location,
             "video_upload_message": video_upload_message,
             "error": error,
-            "user": {
-                "email": user_email,
-                "name": user_name,
-                'picture': picture
-            }
+            'username':user_name,
+            'useremail':user_email,
+            'userpicture': picture
         }
     )
 

@@ -1,0 +1,79 @@
+h1,
+h2 {
+  text-align: center;
+}
+
+.pricing-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.pricing-table {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.plan {
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 200px;
+  border-radius: 5px;
+}
+
+.plan.popular {
+  border: 2px solid #f90;
+}
+
+.plan h2 {
+  margin-bottom: 10px;
+}
+
+.plan .price {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #f90;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e80;
+}
+
+.payment-form {
+  max-width: 400px;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.payment-form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.payment-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.payment-form .card-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-form .card-details div {
+  width: 48%;
+}
