@@ -1,0 +1,14 @@
+:root {
+  --background-main: #dadbdc;
+  --container-main: #bec1d2;
+  --font-color-main: #414141;
+  --font-color-secondary: #3846b1;
+  --font-color-tertiary: #ae185e;
+  --border-outline-file-upload: #1a1a1a;
+  --container-secondary: #dadbdc;
+  --container-tertiary: #fff;
+  --button-color-main: #007aff;
+  --button-color-secondary: #4cd964;
+  --button-color-main-hover: #0056b3;
+  --button-color-secondary-hover: #3ecb71;
+}

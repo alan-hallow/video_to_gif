@@ -5,7 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>{{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ css }}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../static/styles/youtube_video.css"
+    />
+    <link rel="stylesheet" href="../static/styles/specific/header.css" />
+    <link rel="stylesheet" href="../static/styles/specific/control_panel.css" />
+    <link rel="stylesheet" href="../static/styles/specific/main_toggle.css" />
+    <link rel="stylesheet" href="../static/styles/specific/colors.css" />
+
     <!-- google fonts upload -->
     <link
       rel="stylesheet"
@@ -78,70 +88,74 @@
 
     <div class="container_whole_upload_video">
       <div class="container_whole_left_side">
-        <div class="container_whole_left_side_inner">
-          <h2 class="left_side_title">Convert Youtube Video to GIF</h2>
-          <div class="container_all_except_title">
-            <div class="container_left_right_side">
-              <form
-                action="/input_youtube_video_link"
-                class="container_left_right_side"
-                method="post"
-              >
-                <div
-                  id="video-thumbnails"
-                  class="container_thumbnail_or_generated_gif"
-                >
-                  <input
-                    type="text"
-                    name="video_link"
-                    id="video_link"
-                    class="container_thumbnail_or_generated_gif_input"
-                    required
-                    placeholder="Enter Youtube Video Link"
-                  />
-
-                  <!-- Thumbnails will be added here -->
-                </div>
-                <div class="container_usual_stuff">
-                  <p class="container_usual_stuff_p">
-                    Convert your favorite YouTube videos into high-quality GIFs
-                    with ease. Simply paste the YouTube link, select the desired
-                    settings, and let our tool generate a custom GIF for you to
-                    share instantly!
-                  </p>
-                </div>
-                <button type="submit" class="container_left_right_side_button">
-                  Generate Gif
-                </button>
-              </form>
-            </div>
-            {% if gif_url_youtube %}
-            <div
-              class="container_display_generated_gif"
-              style="
-                margin-top: 100px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 100px 30px;
-                border-radius: 30px;
-                border: 2px solid #414141;
-                background-color: #bec1d2;
-              "
+        <div class="youtube_video_whole">
+          <h1 class="youtube_video_main_title_h2">
+            Convert Youtube Videos to Gifs
+          </h1>
+          <img src="" alt="" id="thumbnail"/>
+          <div class="container_for_input_of_youtube_video">
+            <form
+              action="/input_youtube_video_link"
+              method="post"
+              class="container_for_input_of_youtube_video_form"
             >
-              <img
-                src="{{ gif_url_youtube }}"
-                alt="Upload video to create gif"
-                style="
-                  width: 640px;
-                  border-radius: 20px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
+              <input
+                class="generate_gif_main_input"
+                id="video_link"
+                name="video_link"
+                required
+                placeholder="Input youtube video link"
+                type="text"
               />
+              <button class="generate_gif_main_button">Generate Gif</button>
+            </form>
+            <div class="generate_gif_main_thumbnail">
+              <script>
+                // Function to extract the video ID from a YouTube link
+                function getYoutubeID(url) {
+                  // Regular expression for extracting YouTube video ID
+                  const regex =
+                    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                  const match = url.match(regex);
+                  return match ? match[1] : null;
+                }
+
+                // Function to display the thumbnail if a valid video ID is found
+                function displayThumbnail() {
+                  const youtubeLink = document
+                    .getElementById("video_link")
+                    .value.trim();
+                  const videoID = getYoutubeID(youtubeLink);
+
+                  if (videoID) {
+                    const thumbnailUrl = `https://img.youtube.com/vi/${videoID}/hqdefault.jpg`;
+                    const thumbnailImage = document.getElementById("thumbnail");
+                    thumbnailImage.src =
+                      thumbnailImage.style.backgroundImage = `url(${thumbnailUrl})`;
+                    thumbnailImage.style.display = "block";
+                    console.log("Video ID:", videoID); // For debugging
+                    console.log("Thumbnail URL:", thumbnailUrl); // For debugging
+                  } else {
+                    // Hide the thumbnail if no valid video ID is found
+                    const thumbnailImage = document.getElementById("thumbnail");
+                    thumbnailImage.style.display = "none";
+                    console.log("Invalid YouTube link or no video ID found."); // For debugging
+                  }
+                }
+
+                // Event listener to trigger the thumbnail display function on input change
+                document
+                  .getElementById("video_link")
+                  .addEventListener("input", displayThumbnail);
+              </script>
             </div>
-            {% endif %}
+          </div>
+          <div class="container_generated_gif_display">
+            <img
+              src="{{ gif_url_youtube }}"
+              alt=""
+              class="container_generated_gif_display_image"
+            />
           </div>
         </div>
       </div>
@@ -149,76 +163,97 @@
       <div class="container_whole_right_side">
         <div class="container_whole_right_side_inner">
           <h3 class="container_whole_right_side_main_title">Controls</h3>
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              padding-right: 40px;
-              width: 100%;
-            "
-          >
-            <p class="control_panel_paragraph">Sticker</p>
-            <label class="upload_to_tenor">
-              <input
-                type="checkbox"
-                value="upload_to_tenor"
-                name="upload_to_tenor"
-                id="upload_to_tenor"
-              />
-              <span class="slider"></span>
-            </label>
-          </div>
 
           <div
             style="
               display: flex;
               align-items: center;
               justify-content: space-between;
-              padding-right: 40px;
               width: 100%;
             "
           >
-            <p class="control_panel_paragraph">Watermark</p>
+            <p class="control_panel_paragraph">Captions</p>
             <label class="upload_to_tenor">
-              <input
-                type="checkbox"
-                value="upload_to_tenor"
-                name="upload_to_tenor"
-                id="upload_to_tenor"
-              />
+              <input type="checkbox" name="captions_bool" id="captions_bool" />
               <span class="slider"></span>
             </label>
           </div>
 
-          <div class="container_whole_right_side_components">
-            <p class="control_panel_paragraph">Font Size</p>
+          <div class="container_whole_right_side_components be_hidden">
+            <p class="control_panel_paragraph">
+              <span
+                class="material-symbols-outlined"
+                style="font-size: 14px; color: #555555"
+              >
+                subtitles </span
+              >Captions
+            </p>
+
+            <textarea
+              placeholder="Input your caption"
+              class="container_whole_right_side_inner_subtitles"
+              name="captions"
+              style="
+                height: 150px;
+                width: 100%;
+                border-radius: 10px;
+                border: 2px solid #3846b1;
+                background-color: #abadbc;
+                color: #414141;
+                outline: none;
+                padding: 10px;
+                resize: none;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+              "
+            ></textarea>
+          </div>
+
+          <div class="container_whole_right_side_components be_hidden">
+            <p class="control_panel_paragraph">
+              <span
+                class="material-symbols-outlined"
+                style="font-size: 18px; color: #555555"
+              >
+                format_size </span
+              >Font Size
+            </p>
             <input
               class="control_panel_seekbar"
               type="range"
               min="1"
-              value="4"
               max="20"
+              value="20"
+              name="font_size"
             />
           </div>
-          <div class="container_whole_right_side_components">
-            <p class="control_panel_paragraph">Boldness</p>
+          <div class="container_whole_right_side_components be_hidden">
+            <p class="control_panel_paragraph">
+              <span
+                class="material-symbols-outlined"
+                style="font-size: 18px; color: #555555"
+              >
+                format_bold </span
+              >Boldness
+            </p>
             <input
               class="control_panel_seekbar"
               type="range"
-              min="1"
-              value="3"
+              name="boldness"
+              min="0"
               max="10"
+              value="1"
             />
           </div>
 
-          <div class="container_control_panel_color_selectors">
+          <div class="container_control_panel_color_selectors be_hidden">
             <div class="container_control_panel_color_selector_whole">
               <label for="colorInput">Font Color 1</label>
               <input
                 type="color"
                 class="control_panel_color_selector"
                 id="colorInput"
+                name="font_color_one"
                 value="#fafaff"
               />
             </div>
@@ -229,6 +264,7 @@
                 type="color"
                 class="control_panel_color_selector"
                 id="colorInput"
+                name="font_color_two"
                 value="#9b5de5"
               />
             </div>
@@ -239,6 +275,7 @@
                 type="color"
                 class="control_panel_color_selector"
                 id="colorInput"
+                name="outline_color"
                 value="#000000"
               />
             </div>
@@ -249,47 +286,70 @@
                 type="color"
                 class="control_panel_color_selector"
                 id="colorInput"
+                name="shadow_color"
                 value="#000000"
               />
             </div>
           </div>
 
-          <div class="container_whole_right_side_components">
-            <p class="control_panel_paragraph">Shadow Offset</p>
+          <div class="container_whole_right_side_components be_hidden">
+            <p class="control_panel_paragraph">
+              <span
+                class="material-symbols-outlined"
+                style="font-size: 18px; color: #555555"
+              >
+                shadow </span
+              >Shadow Offset
+            </p>
+
             <input
               class="control_panel_seekbar"
               type="range"
-              min="1"
-              value="11"
-              max="20"
+              min="0"
+              max="10"
+              name="shadow_offset"
+              value="0,0"
             />
           </div>
 
-          <div class="container_whole_right_side_components">
-            <p class="control_panel_paragraph">Line Spacing</p>
+          <div class="container_whole_right_side_components be_hidden">
+            <p class="control_panel_paragraph">
+              <span
+                class="material-symbols-outlined"
+                style="font-size: 18px; color: #555555"
+              >
+                format_line_spacing </span
+              >Line Spacing
+            </p>
             <input
               class="control_panel_seekbar"
               type="range"
               min="1"
-              max="5"
-              value="2"
+              max="10"
+              name="line_spacing"
+              value="6"
             />
           </div>
 
           <div
-            class="container_whole_right_side_components"
+            class="container_whole_right_side_components be_hidden"
             style="margin-bottom: 50px"
           >
             <label for="caption_fonts" class="control_panel_paragraph"
+              ><span
+                class="material-symbols-outlined"
+                style="font-size: 18px; color: #555555"
+              >
+                brand_family </span
               >Select Font</label
             >
             <div class="custom-select">
               <select
-                name="caption_fonts"
+                name="font"
                 class="control_panel_selector"
                 id="caption_fonts"
               >
-                <option value="Oswald">Oswald</option>
+                <option value="Oswald.ttf">Oswald</option>
                 <option value="Chase Dreams">Chase Dreams</option>
                 <option value="Arial">Arial</option>
                 <option value="Nelhinco">Nelhinco</option>

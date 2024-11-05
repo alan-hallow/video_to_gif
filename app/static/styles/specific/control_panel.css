@@ -1,0 +1,134 @@
+.container_whole_right_side {
+  height: 100vh;
+  width: 20vw;
+  background-color: var(--container-main);
+  outline: 2px solid #a46ad6;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-bottom: 50px;
+
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container_whole_right_side_inner {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  margin: 20px;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+}
+.container_whole_right_side_main_title {
+  padding-top: 30px;
+  font-weight: 500;
+  justify-self: start;
+}
+
+.container_whole_right_side_components {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+}
+
+.control_panel_color_selector {
+  background-color: transparent;
+  height: 50px;
+  border: none;
+  outline: none;
+}
+.control_panel_paragraph {
+  padding: 10px 0 0 0;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.container_control_panel_color_selectors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+.container_control_panel_color_selector_whole {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+  padding: 10px 0;
+}
+
+input[type="range"] {
+  overflow: hidden;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 20px;
+  width: 100%;
+  background-color: #2f2f2f;
+  border-radius: 50px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  display: none;
+  background-color: transparent;
+  border: none;
+}
+
+input[type="range"]::-moz-range-progress {
+  background-color: #bee3db;
+  height: 20px;
+  border-radius: 50px 0 0 50px;
+}
+
+.custom-select {
+  min-width: 90%;
+  position: relative;
+  margin: 10px 0;
+}
+
+.custom-select select {
+  appearance: none;
+  width: 100%;
+  font-size: 1.15rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fffcf2;
+  border: none;
+  border-radius: 50px;
+  color: var(--font-color-main);
+  cursor: pointer;
+}
+
+.custom-select::before,
+.custom-select::after {
+  --size: 0.3rem;
+  content: "";
+  position: absolute;
+  right: 1rem;
+  pointer-events: none;
+}
+
+.custom-select::after {
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid black;
+  top: 45%;
+  border-radius: 10px;
+}
+/* whole right side ends */
