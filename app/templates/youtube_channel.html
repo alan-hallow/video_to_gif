@@ -5,7 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>{{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ css }}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../static/styles/youtube_channel.css"
+    />
+    <link rel="stylesheet" href="../static/styles/specific/header.css" />
+    <link rel="stylesheet" href="../static/styles/specific/control_panel.css" />
+    <link rel="stylesheet" href="../static/styles/specific/colors.css" />
+    <link rel="stylesheet" href="../static/styles/specific/main_slider.css" />
+    <link rel="stylesheet" href="../static/styles/specific/main_toggle.css" />
     <!-- google fonts upload -->
     <link
       rel="stylesheet"
@@ -77,47 +87,57 @@
     </header>
     <div class="container_whole_upload_video">
       <div class="container_whole_left_side">
-        <div class="container_whole_left_side_inner">
-          <h2 class="left_side_title">Convert Multiple Youtube Video to GIF</h2>
-          <div class="container_all_except_title">
-            <div class="container_left_right_side">
-              <form
-                action="/input_youtube_channel_link"
-                class="container_thumbnail_or_generated_"
-                method="post"
-              >
-                <div
-                  id="video-thumbnails"
-                  class="container_thumbnail_or_generated_gif"
-                >
-                  <input
-                    type="text"
-                    name="channel_link"
-                    class="container_thumbnail_or_generated_gif_input"
-                    required
-                    placeholder="Enter Youtube Channel Link"
-                  />
-                  <!-- Thumbnails will be added here -->
-                </div>
-                <div class="container_usual_stuff">
-                  <p class="container_usual_stuff_p">
-                    Convert all the videos of a Youtube channel into
-                    high-quality GIFs with ease. Simply paste the YouTube
-                    Channel link, select the desired settings, and let our tool
-                    generate a custom GIF for you to share instantly!
-                  </p>
-                </div>
-                <button type="submit" class="container_left_right_side_button">
-                  Generate Gif
-                </button>
-              </form>
+        <div class="youtube_video_whole">
+          <h1 class="youtube_video_main_title_h2">
+            Convert Youtube Videos to Gifs
+          </h1>
+          <p style="padding: 0; margin: 10px 0 30px 0; opacity: 0.7">
+            Paste youtube video link to convert to gifs
+          </p>
+          <div class="container_for_input_of_youtube_video">
+            <form
+              action="/input_youtube_channel_link"
+              class="container_for_input_of_youtube_video_form"
+              method="post"
+            >
+              <input
+                type="text"
+                name="channel_link"
+                class="generate_gif_main_input"
+                required
+                placeholder="Enter Youtube Channel Link"
+              />
+
+              <button type="submit" class="generate_gif_main_button">
+                Generate Gif
+              </button>
+            </form>
+            <div class="container_generated_gif_display">
+              {% for gif_url in gif_urls %}
+              <img
+                src="{{ gif_url }}"
+                alt=""
+                class="container_generated_gif_display_image"
+              />
+              {% endfor %}
             </div>
-            <img
-              style="height: 40px; width: 40px"
-              src="/static/results/{{ gif_url_youtube[0]}}"
-              alt=""
-            />
           </div>
+        </div>
+        <div class="container_for_yotube_video_paragraph">
+          <p>
+            YouTube is the biggest YouTube video sharing platform in the world,
+            and provide an excellent experience for user to upload, view, and
+            share videos. What it can’t provide is a YouTube video to gif
+            converter. That is why video to gif is here to help you out!
+          </p>
+          <p>
+            With our YouTube-to-GIF converter, you can quickly search for your
+            favorite YouTube videos and effortlessly convert them to GIFs for
+            free! Create high-quality GIFs from YouTube videos in various
+            resolutions, including HD and 4K, to perfectly capture any moment.
+            Our converter is compatible with Mac, Android, and Windows, letting
+            you make GIFs wherever you are!
+          </p>
         </div>
       </div>
       <div class="container_whole_right_side">

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
-from app.helpers.youtube_channel_helper import process_youtube_channel
 from fastapi.templating import Jinja2Templates
+from app.helpers.youtube_channel_helper import process_youtube_channel
 import json
 
 templates = Jinja2Templates(directory="app/templates")
@@ -9,7 +9,7 @@ templates = Jinja2Templates(directory="app/templates")
 router = APIRouter()
 
 @router.get("/home/youtube_channel", response_class=HTMLResponse)
-async def youtube_channel_page(request: Request, gif_url_youtube: str = None, video_upload_message: str = None, error: str = None):
+async def youtube_channel_page(request: Request, gif_urls: str = None, video_upload_message: str = None, error: str = None):
     # Retrieve the 'user_info' cookie
     user_info = request.cookies.get("user_info")
     
@@ -22,6 +22,9 @@ async def youtube_channel_page(request: Request, gif_url_youtube: str = None, vi
     else:
         user_email, user_name, picture = None, None, None
 
+    # Parse the gif_urls JSON string back to a list if it’s not None
+    gif_urls = json.loads(gif_urls) if gif_urls else []
+
     return templates.TemplateResponse(
         "youtube_channel.html", 
         {
@@ -29,11 +32,11 @@ async def youtube_channel_page(request: Request, gif_url_youtube: str = None, vi
             "title": "YouTube Video Upload",
             'css': '../static/styles/youtube_channel.css',
             'js': '../static/scripts/youtube_channel.js',
-            "gif_url_youtube": gif_url_youtube,
+            "gif_urls": gif_urls,
             "video_upload_message": video_upload_message,
             "error": error,
-            'username':user_name,
-            'useremail':user_email,
+            'username': user_name,
+            'useremail': user_email,
             'userpicture': picture
         }
     )
@@ -43,10 +46,10 @@ async def handle_youtube_video_upload(request: Request, channel_link: str = Form
     try:
         result = await process_youtube_channel(channel_link)
         if result["status"] == "success":
-            gif_url_youtube = result["gif_urls"]
+            gif_urls = json.dumps(result["gif_urls"])  # Convert the list to a JSON string
             message = result["message"]
             return RedirectResponse(
-                url=f"/home/youtube_channel?gif_url_youtube={gif_url_youtube}&video_upload_message={message}",
+                url=f"/home/youtube_channel?gif_urls={gif_urls}&video_upload_message={message}",
                 status_code=303
             )
         else:

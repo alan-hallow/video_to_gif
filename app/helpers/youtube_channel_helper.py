@@ -79,7 +79,8 @@ async def process_youtube_channel(video_link: str):
             convert_video_to_gif(video_path, gif_path)
 
             # Add to the list of GIF URLs
-            gif_urls.append(gif_filename)
+            gif_url = f"/static/results/{gif_filename}"
+            gif_urls.append(gif_url)
 
         return {"status": "success", "gif_urls": gif_urls, "message": "Videos converted to GIFs successfully!"}
     except Exception as e:
