@@ -90,9 +90,7 @@
           <h2 class="left_side_title">Upload Video</h2>
           <div class="container_all_except_title">
             <div class="file_upload_container">
-              
               <h3 class="file_upload_title">Upload Files</h3>
-
               <div
                 class="container_file_upload_drop_area"
                 id="file_upload_drop_area"
@@ -498,82 +496,84 @@
 
   <script>
     // Select elements
-const uploadContainer = document.getElementById("file_upload_drop_area");
-const fileInput = document.getElementById("upload_video");
-const selectedFileName = document.getElementById("selected_file_name");
-const thumbnailsContainer = document.getElementById("video-thumbnails");
+    const uploadContainer = document.getElementById("file_upload_drop_area");
+    const fileInput = document.getElementById("upload_video");
+    const selectedFileName = document.getElementById("selected_file_name");
+    const thumbnailsContainer = document.getElementById("video-thumbnails");
 
-// Event listeners for upload interactions
-uploadContainer.addEventListener("click", () => fileInput.click());
-uploadContainer.addEventListener("dragover", handleDragOver);
-uploadContainer.addEventListener("drop", handleFileDrop);
+    // Event listeners for upload interactions
+    uploadContainer.addEventListener("click", () => fileInput.click());
+    uploadContainer.addEventListener("dragover", handleDragOver);
+    uploadContainer.addEventListener("drop", handleFileDrop);
 
-// Handle file selection via input
-fileInput.addEventListener("change", handleFileSelect);
+    // Handle file selection via input
+    fileInput.addEventListener("change", handleFileSelect);
 
-function handleDragOver(event) {
-  event.preventDefault();
-  uploadContainer.classList.add("dragging");
-}
+    function handleDragOver(event) {
+      event.preventDefault();
+      uploadContainer.classList.add("dragging");
+    }
 
-function handleFileDrop(event) {
-  event.preventDefault();
-  uploadContainer.classList.remove("dragging");
+    function handleFileDrop(event) {
+      event.preventDefault();
+      uploadContainer.classList.remove("dragging");
 
-  const file = event.dataTransfer.files[0];
-  fileInput.files = event.dataTransfer.files;
-  selectedFileName.textContent = file.name;
-  updateThumbnail(file);
-}
+      const file = event.dataTransfer.files[0];
+      fileInput.files = event.dataTransfer.files;
+      selectedFileName.textContent = file.name;
+      updateThumbnail(file);
+    }
 
-function handleFileSelect(event) {
-  const file = event.target.files[0];
-  selectedFileName.textContent = file.name;
-  updateThumbnail(file);
-}
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      selectedFileName.textContent = file.name;
+      updateThumbnail(file);
+    }
 
-function updateThumbnail(file) {
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const videoElement = document.createElement("video");
-    videoElement.src = e.target.result;
-    videoElement.onloadedmetadata = function () {
-      // Take a snapshot of the video as a thumbnail (first frame)
-      videoElement.currentTime = 0;
-      videoElement.onseeked = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = videoElement.videoWidth;
-        canvas.height = videoElement.videoHeight;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        const thumbnailSrc = canvas.toDataURL();
-        thumbnailsContainer.innerHTML = `<img src="${thumbnailSrc}" alt="Video Thumbnail" style="width: 100%; aspect-ratio: 3/2; border-radius: inherit; z-index: 20; display: flex; align-items: center; justify-content: center;" />`;
+    function updateThumbnail(file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const videoElement = document.createElement("video");
+        videoElement.src = e.target.result;
+        videoElement.onloadedmetadata = function () {
+          // Take a snapshot of the video as a thumbnail (first frame)
+          videoElement.currentTime = 0;
+          videoElement.onseeked = function () {
+            const canvas = document.createElement("canvas");
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            const thumbnailSrc = canvas.toDataURL();
+            thumbnailsContainer.innerHTML = `<img src="${thumbnailSrc}" alt="Video Thumbnail" style="width: 100%; aspect-ratio: 3/2; border-radius: inherit; z-index: 20; display: flex; align-items: center; justify-content: center;" />`;
+          };
+        };
       };
-    };
-  };
-  reader.readAsDataURL(file);
-}
+      reader.readAsDataURL(file);
+    }
 
-function removeFileOnClick() {
-  fileInput.value = "";
-  selectedFileName.textContent = "Selected File Name";
-  thumbnailsContainer.innerHTML = '';
-}
+    function removeFileOnClick() {
+      fileInput.value = "";
+      selectedFileName.textContent = "Selected File Name";
+      thumbnailsContainer.innerHTML = "";
+    }
 
-function triggerFileInput() {
-  fileInput.click();
-}
+    function triggerFileInput() {
+      fileInput.click();
+    }
 
-function loading_Button() {
-  const button = document.getElementById("upload_button");
-  button.textContent = "Uploading...";
-  button.disabled = true;
-}
+    function loading_Button() {
+      const button = document.getElementById("upload_button");
+      button.textContent = "Uploading...";
+      button.disabled = true;
+    }
 
-function hide_or_show_options() {
-  const optionsContainer = document.getElementById("container_for_generated_gif_options");
-  optionsContainer.style.display = optionsContainer.style.display === "none" ? "block" : "none";
-}
-
+    function hide_or_show_options() {
+      const optionsContainer = document.getElementById(
+        "container_for_generated_gif_options"
+      );
+      optionsContainer.style.display =
+        optionsContainer.style.display === "none" ? "block" : "none";
+    }
   </script>
 </html>
