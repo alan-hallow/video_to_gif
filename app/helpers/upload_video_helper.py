@@ -24,20 +24,22 @@ def hex_to_rgb(hex_color):
     # Convert hex to RGB tuple
     return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
 
-async def process_video_upload_with_caption(upload_video: UploadFile, captions, font_size, boldness, font_color_one, font_color_two, outline_color, shadow_color, shadow_offset= '4,4', line_spacing = 10, font= 'Oswald.ttf'):
-    print('with caption')
-
+async def process_video_upload_with_caption(
+    upload_video: UploadFile, 
+    captions, font_size, boldness, font_color_one, font_color_two, 
+    outline_color, shadow_color, shadow_offset='4,4', line_spacing=10, font='Oswald.ttf'
+):
     try:
         # Convert necessary fields to integers
         font_size = int(font_size)
         boldness = int(boldness)
-        
+
         # Ensure shadow_offset is a tuple of integers
         shadow_offset_values = shadow_offset.strip('()').split(',')
 
         if len(shadow_offset_values) != 2:
             raise ValueError("shadow_offset must contain exactly two values.")
-            
+
         shadow_offset = tuple(map(int, shadow_offset_values))  # Convert to a tuple of integers
         line_spacing = int(line_spacing)
 
@@ -50,7 +52,7 @@ async def process_video_upload_with_caption(upload_video: UploadFile, captions, 
         # Ensure the 'uploads' and 'result' folders exist
         uploads_dir = os.path.abspath("app/static/uploads")
         result_dir = os.path.abspath("app/static/results")
-        
+
         for directory in [uploads_dir, result_dir]:
             if not os.path.exists(directory):
                 os.makedirs(directory)
@@ -67,11 +69,9 @@ async def process_video_upload_with_caption(upload_video: UploadFile, captions, 
         await asyncio.to_thread(convert_video_to_gif, video_location, gif_location)
 
         # Check if the font file exists
-        font_path = os.path.join(os.path.abspath('app/fonts'), font)
+        font_path = os.path.abspath("app/fonts/Oswald.ttf")
         if not os.path.exists(font_path):
             raise FileNotFoundError(f"Font file not found at {font_path}")
-
-        print("font path:", font_path)
 
         # Add text to the GIF
         await asyncio.to_thread(add_text_to_gif, gif_location, gif_location, captions, font_path, font_size, shadow_offset, shadow_color, outline_color, font_color_one, font_color_two, line_spacing, boldness)
@@ -80,14 +80,12 @@ async def process_video_upload_with_caption(upload_video: UploadFile, captions, 
 
         return {"status": "success", "gif_location": gif_filename, "message": upload_video.filename}
     except FileNotFoundError as fnf_error:
-        print(f"Font file error: {fnf_error}")
         return {"status": "error", "message": f"Font file error: {str(fnf_error)}"}
     except ValueError as value_error:
-        print(f"Value error: {value_error}")
         return {"status": "error", "message": f"Value error: {str(value_error)}"}
     except Exception as e:
-        print(f"Error processing video with caption: {e}")
         return {"status": "error", "message": f"An error occurred: {str(e)}"}
+
 
 # Async function to process video upload without caption
 async def process_video_upload(upload_video: UploadFile):
@@ -123,7 +121,6 @@ def save_upload_video(upload_video: UploadFile, video_location: str):
     with open(video_location, "wb+") as file_object:
         shutil.copyfileobj(upload_video.file, file_object)
 
-# Function to add text to GIF frames
 def add_text_to_gif(input_gif_path, output_gif_path, text, font_path, font_size=50, shadow_offset=(4, 4), shadow_color=(0, 0, 0, 128), outline_color=(0, 0, 0, 128), font_color1=(255, 255, 255, 255), font_color2=(204, 204, 255, 255), line_spacing=10, boldness=2):
     font = ImageFont.truetype(font_path, font_size)
     original_gif = PIL.Image.open(input_gif_path)
@@ -139,8 +136,7 @@ def add_text_to_gif(input_gif_path, output_gif_path, text, font_path, font_size=
         frame_width = frame.size[0]
         frame_height = frame.size[1]
 
-        total_text_height = sum([draw.textbbox((0, 0), line, font=font)[
-                                3] for line in lines]) + (len(lines) - 1) * line_spacing
+        total_text_height = sum([font.getbbox(line)[3] for line in lines]) + (len(lines) - 1) * line_spacing
 
         y = frame_height - total_text_height - 10
         current_font_color = font_color1 if frame_index % 10 < 5 else font_color2
@@ -151,8 +147,8 @@ def add_text_to_gif(input_gif_path, output_gif_path, text, font_path, font_size=
             text_height = text_bbox[3] - text_bbox[1]
             text_x = (frame_width - text_width) // 2
 
-            draw.text(
-                (text_x + shadow_offset[0], y + shadow_offset[1]), line, font=font, fill=shadow_color)
+            # Shadow and outline
+            draw.text((text_x + shadow_offset[0], y + shadow_offset[1]), line, font=font, fill=shadow_color)
 
             for x_offset in [-boldness, 0, boldness]:
                 for y_offset in [-boldness, 0, boldness]:
@@ -184,16 +180,8 @@ def wrap_text(text, font, max_width):
     words = text.split()
 
     while words:
-        line = ''
-        while words:
-            test_line = line + words[0] + ' '
-            text_width = font.getbbox(test_line)[2]
-
-            if text_width <= max_width:
-                line = test_line
-                words.pop(0)
-            else:
-                break
+        line = ""
+        while words and font.getbbox(line + words[0])[2] <= max_width:
+            line += (words.pop(0) + " ")
         lines.append(line.strip())
-
     return lines

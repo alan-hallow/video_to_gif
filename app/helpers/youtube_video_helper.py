@@ -1,53 +1,73 @@
 import os
-import shutil
 import uuid
 from fastapi import UploadFile
 from moviepy.editor import VideoFileClip
 import yt_dlp
 
-def download_video_from_YT_link(url: str, output_path='static/uploads'):
+
+def download_video_from_YT_link(url: str, output_path='static/uploads') -> str:
+    """
+    Download a video from YouTube and return the file path with a random name.
+    """
     try:
+        # Ensure the output directory exists
+        os.makedirs(output_path, exist_ok=True)
+
+        # Generate a random file name
+        random_name = str(uuid.uuid4())
+        
         # Define options for yt-dlp
         ydl_opts = {
             'format': 'bestvideo',
-            'outtmpl': f'{output_path}/%(title)s.%(ext)s',  # Use video title as file name
+            'outtmpl': f'{output_path}/{random_name}.%(ext)s',  # Use random name for the file
         }
 
-        # Download the video and retrieve its info
+        # Download the video and retrieve its metadata
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            # Extract information and download video
             info = ydl.extract_info(url, download=True)
-            video_title = info.get('title', None)  # Get the video title
-            video_ext = info.get('ext', None)  # Get the video extension
+            video_ext = info.get('ext', 'mp4')  # Get video extension or fallback
 
-            if video_title and video_ext:
-                # Construct the full path to the downloaded video file
-                video_filename = f"{video_title}.{video_ext}"
-                return os.path.join(output_path, video_filename)
+            # Construct the file path
+            video_filename = f"{random_name}.{video_ext}"
+            video_path = os.path.join(output_path, video_filename)
+
+            # Ensure the file exists
+            if os.path.exists(video_path):
+                return video_path
             else:
-                raise FileNotFoundError("Video title or extension not found in metadata.")
+                raise FileNotFoundError(f"Downloaded file not found: {video_path}")
 
     except Exception as e:
         print(f"An error occurred while downloading: {e}")
         return None
+
+
 def convert_video_to_gif(video_path: str, gif_path: str):
+    """
+    Convert a video to a GIF.
+    """
     try:
+        # Resize video and save as GIF
         clip = VideoFileClip(video_path)
-        resized_clip = clip.resize(height=360)
+        resized_clip = clip.resize(height=144).set_fps(5)
+    
+        # Save the resized video as GIF
         resized_clip.write_gif(gif_path)
     except Exception as e:
         print(f"An error occurred during GIF conversion: {e}")
 
-async def process_youtube_video(video_link: str):
+
+async def process_youtube_video(video_link: str) -> dict:
+    """
+    Process a YouTube video by downloading it and converting it to a GIF.
+    """
     try:
         # Ensure directories exist
         uploads_dir = os.path.abspath("app/static/uploads")
-        if not os.path.exists(uploads_dir):
-            os.makedirs(uploads_dir)
-        
+        os.makedirs(uploads_dir, exist_ok=True)
+
         results_dir = os.path.abspath("app/static/results")
-        if not os.path.exists(results_dir):
-            os.makedirs(results_dir)
+        os.makedirs(results_dir, exist_ok=True)
 
         # Download the YouTube video
         video_path = download_video_from_YT_link(video_link, uploads_dir)
@@ -59,13 +79,13 @@ async def process_youtube_video(video_link: str):
         gif_filename = f"{unique_id}.gif"
         gif_path = os.path.join(results_dir, gif_filename)
 
-        # Convert the video to GIF
+        # Convert the video to a GIF
         convert_video_to_gif(video_path, gif_path)
 
-
-        # Return the URL of the GIF
+        # Return the GIF URL
         gif_url = f"/static/results/{gif_filename}"
         return {"status": "success", "gif_url_youtube": gif_url, "message": "Video converted to GIF successfully!"}
+
     except Exception as e:
         print(f"Error processing video: {e}")
         return {"status": "error", "message": f"An error occurred: {str(e)}"}
